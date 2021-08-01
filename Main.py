@@ -6,19 +6,18 @@ from Armazenamento import CRUD
 #Bibliotecas python
 import discord
 import os
-import threading
 import random
+import discord.ext.commands
 from asyncio.events import Handle
 from discord import embeds
 from discord.ext import commands
-from discord.ext.commands import bot
 from pymongo import MongoClient
 from discord.ext.commands.errors import CommandNotFound
 
 client = commands.Bot(intents = discord.Intents.all(), command_prefix=TOKENs.get_prefix())
 
-EmbedsObj = None
-banco = None
+EmbedsObj = Embeds3cm.Epic3cm(client)
+banco = CRUD.Crud()
 
 #----------Bot Status Inicio------------
 
@@ -28,10 +27,6 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print("----------------------")
-    global EmbedsObj 
-    global banco
-    EmbedsObj = Embeds3cm.Epic3cm(client)
-    banco = CRUD.Crud()
 
     await client.change_presence(activity=discord.Game("\"3cm h\" alias \"cm h\"")) #Alterar status do bot
 
@@ -57,9 +52,10 @@ async def on_resumed():
 #-----------Funcoes do Server Inicio-----------
 
 async def checkPlayer(ctx):
-    retorno = banco.checkPlayer(ctx.author.id)
+    id = await ctx.author.id
+    retorno = banco.checkPlayer(id)
     if not retorno:
-        ctx.send("Você já possui um personagem criado.")
+        await ctx.send("Você já possui um personagem criado.")
     return retorno
 
 #-----------Funcoes do Server Fim-----------
@@ -109,7 +105,10 @@ async def ping(ctx): #Comando para testar a latencia
 @client.command()
 @client.check(checkPlayer)
 async def createPlayer(ctx): #Criar player
-    Player = {}
+    await ctx.send(random.choice(banco.read("classe")))
+    #Player = {
+    #    "classe":random.choice(banco.read("classe"))
+    #}
 
 #------------Comandos Importantes Fim-----------
 

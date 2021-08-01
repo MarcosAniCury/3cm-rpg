@@ -1,14 +1,12 @@
 #Meus arquivos .py
 from discord import channel
-from Main import EmbedsObj, checkRoles
 from Armazenamento import CRUD
-from Armazenamento import EmbedsEpicHealper
+from Armazenamento import Embeds3cm
 
 #Bibliotecas python
 import discord
 import asyncio
 import random
-import youtube_dl
 from discord.ext import commands
 
 global iniciativa
@@ -69,7 +67,7 @@ class Dice(commands.Cog):
         
     @commands.command()
     async def iniciativa(self, ctx):
-        
+        print('ok')
                     
 #------------Rpg Class Fim-----------------
 

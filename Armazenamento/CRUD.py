@@ -8,8 +8,8 @@ class Crud:
 
     #Construtor
     def __init__(self):
-        DB = MongoClient(TOKENs.get_tokenCrud())
-        self.banco = DB.3cm
+        DB = MongoClient(TOKENs.get_tokenDB())
+        self.banco = DB.cm3
         print("Conexão com o MongoDB realizada")
         print("------------------------------")
 
@@ -22,8 +22,9 @@ class Crud:
         colecao.insert_one(item)
         return True
 
-    def read_ServidoresById(self,Server_id): #Criar um documento
-        return self.Servidores.find_one({"Server_id":Server_id})
+    def read(self,Colecao,item): #Criar um documento
+        colecao = self.banco.Colecao
+        return self.colecao.find_one(item)
 
     def update_Servidores(self,Server):
         Obj = self.read_ServidoresById(Server["Server_id"])
