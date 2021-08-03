@@ -20,7 +20,7 @@ class Epic3cm:
 
         HelpCommand = discord.Embed(
             title = "Comandos",
-            description = "Bot feito para auxilio em diversas funcionalidades\n\u200b",
+            description = "Bot feito para o Rpg 3CM\n\u200b",
             colour = 0xBF00FF,
         )
 
@@ -33,20 +33,6 @@ class Epic3cm:
         )
 
         HelpCommand.add_field(
-            name="🍪Arena Comandos🍪",
-            value = "`a join` - Entrar na arena\n"
-            "`a leave` - Sair da arena\n"
-            "\nBot em construção, mais comandos serão adicionados no futuro"
-        )
-
-        HelpCommand.add_field(
-            name="🐉Miniboss Comandos🐉",
-            value = "`mb join <lv>` - Entrar no Miniboss\n"
-            "`mb leave` - Sair do Miniboss\n"
-            "\nBot em construção, mais comandos serão adicionados no futuro\n\u200b",
-        )
-
-        HelpCommand.add_field(
             name="🏹RPG de Mesa Comandos⚔️",
             value = "`rd<numero de lados> <quantidades de vezes>` - Rodar um dado de n lados m vezes\n"
             "\nBot em construção, mais comandos serão adicionados no futuro",
@@ -54,7 +40,7 @@ class Epic3cm:
         )
 
         HelpCommand.set_footer(text="Develop by:Miko#9331", icon_url=f'{self.client.get_user(239498713347653633).avatar_url}')
-        HelpCommand.set_author(name="Helper Utilities", icon_url=f'{self.client.get_user(819262080200736840).avatar_url}')
+        HelpCommand.set_author(name="3cm Rpg", icon_url=f'{self.client.get_user(869952210979663883).avatar_url}')
 
         return HelpCommand
 
@@ -68,36 +54,12 @@ class Epic3cm:
 
         HelpAdmCommand.add_field(
             name="📄Server Comandos📄", 
-            value = "`"+self.prefix+"add_adm <cargo ou cargos>` - adicionar cargos como adms\n"
-            "`"+self.prefix+"remove_adm <cargo ou cargos>` - remover cargos como adms\n"
-            "`"+self.prefix+"list_adm <cargo ou cargos>` - listar todos os cargos setados como adms\n"
-            "`"+self.prefix+"ativar_modulo <modulo>` - ativar um modulo do bot\n"
+            value = "`"+self.prefix+"ativar_modulo <modulo>` - ativar um modulo do bot\n"
             "`"+self.prefix+"desativar_modulo <modulo>` - desativar um modulo do bot\n\u200b",
-            inline = False
-        )
-
-        HelpAdmCommand.add_field(
-            name="🍪Arena Comandos🍪",
-            value = "`a reset` - Reinicia a arena\n"
-            "`a list` - Mostra a lista da arena\n"
-            "`a send` - Forçar envio da lista da arena\n"
-            "`"+self.prefix+"set_arena_commands <menção do canal>` - Setar canal em que comandos da arena serão executados\n"
-            "`"+self.prefix+"set_arena_execute <menção do canal>` - Setar canal em que a arena será executada\n"
-            "\nBot em construção, mais comandos serão adicionados no futuro"
-        )
-
-        HelpAdmCommand.add_field(
-            name="🐉Miniboss Comandos🐉",
-            value = "`mb reset` - Reinicia o Miniboss\n"
-            "`mb list` - Mostra a lista do Miniboss\n"
-            "`mb send` - Forçar envio da lista do Miniboss\n"
-            "`"+self.prefix+"set_miniboss_commands <menção do canal>` - Setar canal em que comandos do miniboss serão executados\n"
-            "`"+self.prefix+"set_miniboss_execute <menção do canal>` - Setar canal em que o miniboss será executada\n"
-            "\nBot em construção, mais comandos serão adicionados no futuro",
         )
 
         HelpAdmCommand.set_footer(text="Develop by:Miko#9331", icon_url=f'{self.client.get_user(239498713347653633).avatar_url}')
-        HelpAdmCommand.set_author(name="EPIC HEALPER", icon_url=f'{self.client.get_user(819262080200736840).avatar_url}')
+        HelpAdmCommand.set_author(name="3cm Rpg", icon_url=f'{self.client.get_user(869952210979663883).avatar_url}')
 
         return HelpAdmCommand
     

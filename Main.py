@@ -50,12 +50,11 @@ async def on_resumed():
 #----------Bot Status Fim------------
 
 #-----------Funcoes do Server Inicio-----------
-
 async def checkPlayer(ctx):
-    id = await ctx.author.id
+    id = ctx.author.id
     retorno = banco.checkPlayer(id)
     if not retorno:
-        await ctx.send("Você já possui um personagem criado.")
+        ctx.send("Você já possui um personagem criado.")
     return retorno
 
 #-----------Funcoes do Server Fim-----------
@@ -103,7 +102,7 @@ async def ping(ctx): #Comando para testar a latencia
     await ctx.send(f'Pong, {round(client.latency * 1000)}ms')
 
 @client.command()
-@client.check(checkPlayer)
+@commands.check(checkPlayer)
 async def createPlayer(ctx): #Criar player
     await ctx.send(random.choice(banco.read("classe")))
     #Player = {

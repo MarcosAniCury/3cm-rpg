@@ -35,22 +35,31 @@ class Dice(commands.Cog):
         #Variaveis importantes
         guild = message.guild
         member = guild.get_member(message.author.id)
-        channel = self.banco.read_ServidoresById(guild.id)
+        channel = guild.get_channel(872118823610904596)
 
         if message.author.id != self.client.user.id:
             if message.content.lower().startswith("rd"):
                 mensagem = message.content.split()
-                number = int(mensagem[0][2:])
-                if len(mensagem) == 1:
+                number = int(mensagem[0][2:])#Pega os numeros apos o 'rd'
+
+                if len(mensagem) == 1: #ve quantos loops tem que dar
                     loops = 1
                 else:
                     loops = int(mensagem[1])
+                    if loops > 20: #para ninguem usar mais de 50 dados
+                        loops = 20
+                        await message.channel.send("**NÃO PODE MAIS DE 20 OTÁRIO**")
+
+                #apenas para randomizar
                 randomizar = []
                 for x in range(20):
                     randomizar.append(random.randint(0,999))
+
                 for x in range(loops):
+                    #randomizar
                     result = random.randint(1, number)
                     random.seed(random.randint(random.choice(randomizar),999))
+
                     returnFunc = None 
                     if result == number:
                         returnFunc = "**"+str(result)+"** <- d"+str(number)+" **CRITÍCO, `dano pra carai`**"
@@ -59,7 +68,7 @@ class Dice(commands.Cog):
                     else:
                         returnFunc = "`"+str(result)+"` <- d"+str(number)
 
-                    if member.id != 775461234233180180 :
+                    if member.id != 239498713347653633 :
                         returnFunc += " --- Player:`"+member.display_name+"`"
                     else:
                         returnFunc += " --- `Inimigo`"
@@ -67,7 +76,7 @@ class Dice(commands.Cog):
         
     @commands.command()
     async def iniciativa(self, ctx):
-        print('ok')
+        await ctx.send('ok')
                     
 #------------Rpg Class Fim-----------------
 
