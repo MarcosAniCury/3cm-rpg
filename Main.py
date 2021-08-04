@@ -50,11 +50,11 @@ async def on_resumed():
 #----------Bot Status Fim------------
 
 #-----------Funcoes do Server Inicio-----------
-async def checkPlayer(ctx):
+async def checkNotExistPlayer(ctx):
     id = ctx.author.id
-    retorno = banco.checkPlayer(id)
+    retorno = not banco.checkPlayer(id)
     if not retorno:
-        ctx.send("Você já possui um personagem criado.")
+        await ctx.send("Você já possui um personagem criado.")
     return retorno
 
 #-----------Funcoes do Server Fim-----------
@@ -62,16 +62,22 @@ async def checkPlayer(ctx):
 #-----------Modulos Inicio-------------
 
 @client.command()
-@commands.is_owner()
+@commands.has_permissions(administrator = True)
 async def ativar_modulo(ctx, extension):
     await ctx.send("modulo "+extension+" ativado")
     client.load_extension(f'Scripts.{extension}')
 
 @client.command()
-@commands.is_owner()
+@commands.has_permissions(administrator = True)
 async def desativar_modulo(ctx, extension):
     await ctx.send("modulo "+extension+" desativado")
     client.unload_extension(f'Scripts.{extension}')
+
+@client.command()
+@commands.has_permissions(administrator = True)
+async def reiniciar_modulo(ctx, ext):
+    await desativar_modulo(ctx,ext)
+    await ativar_modulo(ctx,ext)
 
 for filename in os.listdir('./Scripts'):
     if filename.endswith('.py'):
@@ -101,10 +107,18 @@ client.help_command = MyHelp() #Quando digitar <prefix> help vai chamar a funcao
 async def ping(ctx): #Comando para testar a latencia
     await ctx.send(f'Pong, {round(client.latency * 1000)}ms')
 
+@client.command(aliases = ["hadm"])
+@commands.has_permissions(administrator = True)
+async def helpadm(ctx): #Help para administradores
+    HelpAdmEmbed = EmbedsObj.get_HelpAdmCommand()
+    await ctx.send(embed=HelpAdmEmbed)
+
 @client.command()
-@commands.check(checkPlayer)
+@commands.check(checkNotExistPlayer)
 async def createPlayer(ctx): #Criar player
-    await ctx.send(random.choice(banco.read("classe")))
+    classesDict = banco.readColection("classes")
+    print(classesDict.pop('_id'))
+    await ctx.send(random.choice(classesDict))
     #Player = {
     #    "classe":random.choice(banco.read("classe"))
     #}
@@ -119,9 +133,7 @@ async def on_command_error(ctx, error): #Tratamento de exceções
         await ctx.send("Por favor passe todos os argumentos necessários", delete_after = 20)
     elif isinstance(error, commands.CommandNotFound):
         await ctx.send("Comando não encontrado, digite help help para ver os comandos ativos", delete_after = 20)
-        channel = banco.read_ServidoresById(ctx.guild.id)
-        if channel["Channel_Arena_Commands"] == ctx.message.channel.mention and ctx.author.id != 819262080200736840: #Verificar se os comandos estão habilitados nesse chat
-            ctx.message.delete()
+        ctx.message.delete()
     elif isinstance(error, commands.NotOwner):
         await ctx.send("Apenas o dono do server pode executar esse comando", delete_after = 20)
     elif isinstance(error, commands.CheckFailure):

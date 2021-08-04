@@ -18,13 +18,14 @@ class Crud:
     #--------------Crud Inicio--------------
 
     def create(self,Colecao,item): #Criar um documento
-        colecao = self.banco.Colecao
-        colecao.insert_one(item)
+        self.banco[Colecao].insert_one(item)
         return True
 
-    def read(self,Colecao,item): #Criar um documento
-        colecao = self.banco.Colecao
-        return self.colecao.find_one(item)
+    def read(self,Colecao,item): #Ler um documento
+        return self.banco[Colecao].find_one(item)
+
+    def readColection(self,Colecao): #Ler a coleção inteira
+        return self.banco[Colecao].find_one()
 
     def update_Servidores(self,Server):
         Obj = self.read_ServidoresById(Server["Server_id"])
