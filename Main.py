@@ -113,16 +113,6 @@ async def helpadm(ctx): #Help para administradores
     HelpAdmEmbed = EmbedsObj.get_HelpAdmCommand()
     await ctx.send(embed=HelpAdmEmbed)
 
-@client.command()
-@commands.check(checkNotExistPlayer)
-async def createPlayer(ctx): #Criar player
-    classesDict = banco.readColection("classes")
-    print(classesDict.pop('_id'))
-    await ctx.send(random.choice(classesDict))
-    #Player = {
-    #    "classe":random.choice(banco.read("classe"))
-    #}
-
 #------------Comandos Importantes Fim-----------
 
 #-------------Tratamento de exceção Inicio-------------------

@@ -27,8 +27,7 @@ class Epic3cm:
         HelpCommand.add_field(
             name="📄Server Comandos📄", 
             value ="`"+self.prefix+"ping` - para testar a latência\n"
-            "`"+self.prefix+"helpadm || hadm` - comando help para adms **Apenas ADMs**\n"
-            "`"+self.prefix+"credits` - créditos e agradecimentos\n\u200b",
+            "`"+self.prefix+"helpadm || hadm` - comando help para adms **Apenas ADMs**\n\u200b",
             inline = False
         )
 
