@@ -1,58 +1,87 @@
 {
     "Príncipe": {
         "descricao":"proteger a princesa, ganha regeneração completa de mana ao consumir tudo e +50 pontos ao salvar a princesa de um perigo iminente",
-        "modificador":"ManaRecoverEmpty,PointsSavePrinces50+"
+        "modificador":"ManaRecoverEmpty,PointsSavePrinces50+",
+        "utilizado": "False"
     },
     "Sobrevivente": {
         "descricao": "Ao fazer uma acao extremamente arriscada ganha-se 25% de chance de acerto, +10% de pontos por sobrevivencia",
-        "modificador": "ActionRiskChance25%+,PointsSurvival10%+"
+        "modificador": "ActionRiskChance25%+,PointsSurvival10%+",
+        "utilizado": "False"
     },
     "Assasino": {
         "descricao":"Ao dar dano a jogadores seu dano aumenta em 10%, +10% de pontos por kill",
-        "modificador": "ActionPK10%+,PointsKill10%+"
+        "modificador": "ActionPK10%+,PointsKill10%+",
+        "utilizado": "False"
     },
     "Comum": {
         "descricao":"Sem buff especiais, +10 pontos por conclusão de cenário",
-        "modificador": "PointsSceneFinish10+"
+        "modificador": "PointsSceneFinish10+",
+        "utilizado": "False"
     },
     "Guloso": {
         "descricao":"Ao comer uma refeição aumenta sua defesa em 25%, +1 ponto por comida",
-        "modificador": "ActionEatFoodEvasion25%+,PointsEatFood1+"
+        "modificador": "ActionEatFoodEvasion25%+,PointsEatFood1+",
+        "utilizado": "False"
     },
     "Defensor": {
         "descricao":"Ao realizar ações para proteger aliados ganha 50% de chance de acerto",
-        "modificador":"ActionProtectFriends50%+"
+        "modificador":"ActionProtectFriends50%+",
+        "utilizado": "False"
     },
     "Princesa": {
         "descricao":"Ao estar proxima ao princepe sua vida maxima aumenta em 10%",
-        "modificador":"BoostLifeNextPrince10%+"
+        "modificador":"BoostLifeNextPrince10%+",
+        "utilizado": "False"
     },
     "Comandante": {
         "descricao":"Ao seus aliados realizarem ações comandadas por você todos ganham 10% de chance de acerto",
-        "modificador": "ActionFriendsYouCommands10%+"
+        "modificador": "ActionFriendsYouCommands10%+",
+        "utilizado": "False"
     },
     "Pontuador": {
         "descricao":"Toda ação crítica te da +5 pontos",
-        "modificador": "PointsCritical5+"
+        "modificador": "PointsCritical5+",
+        "utilizado": "False"
     },
     "Sortudo": {
         "descricao":"A sorte está sempre ao seu lado",
-        "modificador":"AttributesLuck3+"
+        "modificador":"AttributesLuck3+",
+        "utilizado": "False"
     },
     "Sniper": {
         "descricao":"Ao realizar ações de acerto a longa distância você tem 20% a mais de chance de acerto",
-        "modificador":"ActionLongRange20%+"
+        "modificador":"ActionLongRange20%+",
+        "utilizado": "False"
     },
     "Lutador": {
         "descricao":"Ao realizar ações corpo a corpo você tem 20% a mais de chance de acerto",
-        "modificador":"ActionMelee20%+"
+        "modificador":"ActionMelee20%+",
+        "utilizado": "False"
     },
     "Estudioso": {
         "descricao":"Você é uma pessoa muito estudiosa e acaba ganhando de bonus +5 de inteligencia",
-        "modificador": "AttributesInt5+" 
+        "modificador": "AttributesInt5+" ,
+        "utilizado": "False"
     },
     "Mestre das Armas": {
         "descricao":"Você tem uma proficiência com armas em que utilizar repetidadamente a mesma arma tem uma pequena chance de você adquirir uma habilidade com ela",
-        "modificador":"SkillsGenerateWeapon"
+        "modificador":"SkillsGenerateWeapon",
+        "utilizado": "False"
+    },
+    "Suporte":{
+        "descrisao": "Quando utilizar classe relacionadas a suporte aumenta a chance de acerto em 20%",
+        "modificador": "ActionSkillSuporte20%+",
+        "utilizado": "False"
+    },
+    "Caçador de Monstros":{
+        "descrisao": "Quando for matar monstros aumenta seu pontos em 20%",
+        "modificador": "PointsKillMonster20%+",
+        "utilizado": "False"
+    },
+    "Político":{
+        "descrisao": "Consegue converser mais facilmente pessoas 10%+ de bonus em CAR",
+        "modificador": "AttributesCar10%+",
+        "utilizado": "False"
     }
 }

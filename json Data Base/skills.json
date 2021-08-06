@@ -1,0 +1,164 @@
+{
+    "Barreira":{
+        "descrisao": "Inicialmente o jogador pode manifestar uma barreira",
+        "limite nivel": {"nv1": "Apenas pode manifestar uma barreira fraca grande por um limite curto de tempo"},
+        "consumo": "ManaPerUse5",
+        "utilizado": "False"
+    },
+    "Força":{
+        "descrisao": "Aumenta a forca do usuario",
+        "limite nivel": {"nv1": "Aumenta a forca do usuario em 2x consumindo mana e estamina ao mesmo tempo"},
+        "consumo": "ManaPerMinute10",
+        "utilizado": "False"
+    },
+    "Asas":{
+        "descrisao": "O usuário manifesta asas",
+        "limite nivel": {"nv1": "Manifesta uma asa pequena e fraca que mal consegue voar com voce"},
+        "consumo": "ManePerMinute5",
+        "utilizado": "False"
+    },
+    "Controle dos Mortos":{
+        "descrisao":"Consegue resucitar os mortos para seguilo",
+        "limite nivel": {"nv1": "Consegue apenas manter um cadaver por 3 dias antes de apodrecer, e os cadavers são extremamente fracos"},
+        "consumo": "ManaPerUse10",
+        "utilizado": "False"
+    },
+    "Vidente":{
+        "descrisao": "Consegue prever o futuro tocando em alguem",
+        "limite nivel": {"nv1": "O futuro previsto sera apenas fragmentos confusos do que ira acontecer com a pessoa"},
+        "consumo": "ManaPerUse5",
+        "utilizado": "False"
+    },
+    "Giganteficação":{
+        "descrisao": "Consegue crescer",
+        "limite nivel": {"nv1": "O usuario cresce para 9cm"},
+        "consumo": "ManaPerMinute10",
+        "utilizado": "False"
+    },
+    "Sopro de fogo":{
+        "descrisao": "Cospe fogo",
+        "limite nivel": {"nv1": "O usuario solta um sopro do fogo"},
+        "consumo": "ManaPerUse5",
+        "utilizado": "False"
+    },
+    "Gelado":{
+        "descrisao": "Solta gelo pela mão",
+        "limite nivel": {"nv1": "solta um gelo fraco mas que consegue congelar objetos"},
+        "consumo": "ManaPerUse5",
+        "utilizado": "False"
+    },
+    "Reconhecimento":{
+        "descrisao": "Consegue usar um minimapa",
+        "limite nivel": {"nv1": "Mostra apenas o local"},
+        "consumo": "ManaPerMinute10",
+        "utilizado": "False"
+    },
+    "Buff de nivel":{
+        "descrisao": "Consegue buffar o nivel da skill de um usuario enquanto tiver mana",
+        "limite nivel": {"nv1": "1 usuario e upa 1 nivel de uma habilidade dele aleatoriamente"},
+        "consumo": "ManaPerMinute10",
+        "utilizado": "False"
+    },
+    "Detector de Mentiras":{
+        "descrisao": "Consegue detectar mentiras",
+        "limite nivel": {"nv1": "apenas verifica se alguem mentiu falando diretamente pra voce e se ela souber que esta mentindo"},
+        "consumo": "None",
+        "utilizado": "False"
+    },
+    "Horador":{
+        "descrisao": "Consegue convencer as pessoas",
+        "limite nivel": {"nv1": "apenas convence pessoas do mesmo nivel ou inferior a voce, gasta mana por pessoa convencida"},
+        "consumo": "ManaPerUse5",
+        "utilizado": "False"
+    },
+    "Controle de Gravidade":{
+        "descrisao": "Consegue controlar a gravidade",
+        "limite nivel": {"nv1": "controla apenas a gravidade em objetos proximos a voce"},
+        "consumo": "ManaPerUse5",
+        "utilizado": "False"
+    },
+    "Curador":{
+        "descrisao": "Consegue curar pessoas",
+        "limite nivel": {"nv1": "Consegue restaurar apenas 5 de todos os status para a pessoa"},
+        "consumo": "ManaPerUse15",
+        "utilizado": "False"
+    },
+    "Copiador":{
+        "descrisao": "Consegue copiar habilidades de outros players",
+        "limite nivel": {"nv1": "Consegue copiar 1 habilidade de uma pessoa porem ela estara no nivel 1"},
+        "consumo": "ManaPerUse5",
+        "utilizado": "False"
+    },
+    "Domador":{
+        "descrisao": "Consegue domar animais",
+        "limite nivel": {"nv1": "Consegue domar criaturas, desde que estejam sendo amigaveis ou muito machucadas"},
+        "consumo": "ManaPerUse10",
+        "utilizado": "False"
+    },
+    "Detecção":{
+        "descrisao": "Consegue detectar coisas que ninguem mais ve",
+        "limite nivel": {"nv1": "Consegue observar coisas no cenario em que esta com muito mais detalhe"},
+        "consumo": "ManaPerUse5",
+        "utilizado": "False"
+    },
+    "Homem Bomba":{
+        "descrisao": "Consegue se explodir para causar um dano absurdo em alguma coisa",
+        "limite nivel": {"nv1": "Consegue explodir seu corpo todo para causar um dano absurdo"},
+        "consumo": "ManaTotal",
+        "utilizado": "False"
+    },
+    "Controlador de Sangue":{
+        "descrisao": "Consegue manipular o sangue da forma que quiser",
+        "limite nivel": {"nv1": "Consegue controlar o próprio sangue, quando esta ligado na propria mao"},
+        "consumo": "ManaPerMinute5",
+        "utilizado": "False"
+    },
+    "Criador de portais":{
+        "descrisao": "Consegue criar portais",
+        "limite nivel": {"nv1": "Consegue apenas criar portais para ate 10m de distancia"},
+        "consumo": "ManaPerUse10",
+        "utilizado": "False"
+    },
+    "Telepatia":{
+        "descrisao": "Consegue falar telepaticamente com alguem",
+        "limite nivel": {"nv1": "Consegue falar telepaticamente com pessoas perto de voce"},
+        "consumo": "ManaPerMinute5",
+        "utilizado": "False"
+    },
+    "Absorção":{
+        "descrisao": "Consegue absorver objeto que toca e manifestar em seu corpo",
+        "limite nivel": {"nv1": "Consegue apenas absorver materias leves, um de cada vez e manifestar"},
+        "consumo": "ManaPerMinute10",
+        "utilizado": "False"
+    },
+    "Telesinese":{
+        "descrisao": "Consegue controlar coisas com o poder da mente",
+        "limite nivel": {"nv1": "Consegue apenas controlar objetos pequenos e pessoas com muito esforco"},
+        "consumo": "ManaPerUse10",
+        "utilizado": "False"
+    },
+    "Inventario":{
+        "descrisao": "Consegue armazenar itens em um inventario",
+        "limite nivel": {"nv1": "apenas 5 itens de tamanho pequeno"},
+        "consumo": "None",
+        "utilizado": "False"
+    },
+    "Portal Dimensão Invertida":{
+        "descrisao": "Consegue criar um portal pra dimensao invertida",
+        "limite nivel": {"nv1": "Consegue apenas criar um portal pra essa dimensão porém pra voltar o portal é spawnado no mesmo lugar que voce entrou na dimensao"},
+        "consumo": "ManaPerUse20",
+        "utilizado": "False"
+    },
+    "Metamorfo":{
+        "descrisao": "Consegue absorver qualquer ser vivo e manifestar no seu corpo alguma parte dele",
+        "limite nivel": {"nv1": "Consegue absorver apenas 1 individuo por vez e manifestalo"},
+        "consumo": "ManaPerMinute10",
+        "utilizado": "False"
+    },
+    "Olho da Verdade":{
+        "descrisao": "Consegue ver através do sistema e de tudo",
+        "limite nivel": {"nv1": "Consegue ver a ficha dos players que possuem menos estrelas que voce"},
+        "consumo": "None",
+        "utilizado": "False"
+    }
+}
