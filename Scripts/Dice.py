@@ -12,21 +12,21 @@ from discord.ext import commands
 global iniciativa
 iniciativa = []
 
-class Dice(commands.Cog):
+class dice(commands.Cog):
 
     def __init__(self,client):
         self.client = client
-        self.banco = CRUD.Crud()
+        self.banco = CRUD.crud()
 
     #Evento
     @commands.Cog.listener()
     async def on_ready(self):
-        print("Modulo Dice Carregado") 
+        print("Modulo dice Carregado") 
         print("----------------------")
 
     @commands.Cog.listener()
     async def on_disconnect():
-        print("Modulo Dice desconectado")
+        print("Modulo dice desconectado")
         print("---------------------")
 
     @commands.Cog.listener()
@@ -69,7 +69,7 @@ class Dice(commands.Cog):
                         returnFunc = "`"+str(result)+"` <- d"+str(number)
 
                     if member.id != 239498713347653633 :
-                        returnFunc += " --- Player:`"+member.display_name+"`"
+                        returnFunc += " --- player:`"+member.display_name+"`"
                     else:
                         returnFunc += " --- `Inimigo`"
                     await message.channel.send(returnFunc)
@@ -81,7 +81,7 @@ class Dice(commands.Cog):
 #------------Rpg Class Fim-----------------
 
 def setup(client): #Ativa o Cog
-    client.add_cog(Dice(client))
+    client.add_cog(dice(client))
 
 #-----------Funcoes do Cog Inicio-----------
 

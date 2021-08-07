@@ -2,7 +2,7 @@
 from discord import channel
 from Armazenamento import CRUD
 from Armazenamento import Embeds3cm
-from Main import checkNotExistPlayer
+from Main import check_not_exist_player
 
 #Bibliotecas python
 import discord
@@ -10,27 +10,27 @@ import asyncio
 import random
 from discord.ext import commands
 
-class Player(commands.Cog):
+class player(commands.Cog):
 
     def __init__(self,client):
         self.client = client
-        self.banco = CRUD.Crud()
+        self.banco = CRUD.crud()
 
     #Evento
     @commands.Cog.listener()
     async def on_ready(self):
-        print("Modulo Player Carregado") 
+        print("Modulo player Carregado") 
         print("----------------------")
 
     @commands.Cog.listener()
     async def on_disconnect():
-        print("Modulo Player desconectado")
+        print("Modulo player desconectado")
         print("---------------------")
 
     @commands.command()
     @commands.has_permissions(administrator = True)
-    #@commands.check(checkNotExistPlayer)
-    async def createPlayer(self, ctx): #Criar player
+    #@commands.check(check_not_exist_player)
+    async def createplayer(self, ctx): #Criar player
         #Sortear uma classe
         classesDict = self.banco.read_chose_random_one("classes")
         classesDict.pop('_id') #remover id
@@ -73,7 +73,7 @@ class Player(commands.Cog):
 
         await ctx.send("**SPOILER ALERT:** Nome:"+nome_personagem.content+" classe:"+classe_sorteada+" estrelas:"+str(estrelas)+" habilidade:"+habilidades[1]+" morto:False")
 
-        Player = {
+        player = {
             "id_player": ctx.author.id,
             "name": nome_personagem.content,
             "classe": classe_sorteada,
@@ -108,7 +108,7 @@ class Player(commands.Cog):
 #------------Rpg Class Fim-----------------
 
 def setup(client): #Ativa o Cog
-    client.add_cog(Player(client))
+    client.add_cog(player(client))
 
 #-----------Funcoes do Cog Inicio-----------
 

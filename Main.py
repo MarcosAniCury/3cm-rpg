@@ -16,8 +16,8 @@ from discord.ext.commands.errors import CommandNotFound
 
 client = commands.Bot(intents = discord.Intents.all(), command_prefix=TOKENs.get_prefix())
 
-EmbedsObj = Embeds3cm.Epic3cm(client)
-banco = CRUD.Crud()
+EmbedsObj = Embeds3cm.epic_3cm(client)
+banco = CRUD.crud()
 
 #----------Bot Status Inicio------------
 
@@ -42,17 +42,17 @@ async def on_resumed():
     print("----------------------")
     global EmbedsObj 
     global banco
-    EmbedsObj = Embeds3cm.Epic3cm(client)
-    banco = CRUD.Crud()
+    EmbedsObj = Embeds3cm.epic_3cm(client)
+    banco = CRUD.crud()
 
     await client.change_presence(activity=discord.Game("\"3cm h\" alias \"cm h\"")) #Alterar status do bot
 
 #----------Bot Status Fim------------
 
 #-----------Funcoes do Server Inicio-----------
-async def checkNotExistPlayer(ctx):
+async def check_not_exist_player(ctx):
     id = ctx.author.id
-    retorno = not banco.checkPlayer(id)
+    retorno = not banco.check_player(id)
     if not retorno:
         await ctx.send("Você já possui um personagem criado.")
     return retorno

@@ -4,7 +4,7 @@ from Armazenamento import TOKENs
 #Bibliotecas python
 from pymongo import MongoClient
 
-class Crud:
+class crud:
 
     #Construtor
     def __init__(self):
@@ -15,7 +15,7 @@ class Crud:
 
     #--------Colection Servidores Inicio--------
 
-    #--------------Crud Inicio--------------
+    #--------------crud Inicio--------------
 
     def create(self,Colecao,item): #Criar um documento
         self.banco[Colecao].insert_one(item)
@@ -43,7 +43,7 @@ class Crud:
             conseguiu = True
         return conseguiu
 
-    #---------------Crud Fim------------------
+    #---------------crud Fim------------------
 
     def ServidoresCheck(self,Arr,key): #Checar para alterar um dos valores presentes na Coleção
         Server = dict(Arr)
@@ -59,10 +59,10 @@ class Crud:
         else:
             self.create_Servidores(Server)
 
-    def checkPlayer(self,id):
-        Players = self.banco.Players
+    def check_player(self,id):
+        players = self.banco.players
         retorno = False
-        if(Players.find_one({"PlayerId":id}) != None):
+        if(players.find_one({"playerId":id}) != None):
             retorno = True
         return retorno
 

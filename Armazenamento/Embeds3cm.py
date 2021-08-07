@@ -7,7 +7,7 @@ import discord
 from discord import client
 from discord.ext.commands.help import HelpCommand
 
-class Epic3cm:
+class epic_3cm:
     
     #Construtores
     def __init__(self, client):
