@@ -108,7 +108,7 @@ class epic_3cm:
             name="\u200b",
             value = "🧙‍♂️**Int**:"+str(playerdict["atributos_fixos"]["int"])+"\n"
             "😜**Car**:"+str(playerdict["atributos_fixos"]["car"])+"\n"
-            "🍀**Con**:"+str(playerdict["atributos_fixos"]["sor"])+"\n",
+            "🍀**Sor**:"+str(playerdict["atributos_fixos"]["sor"])+"\n",
             inline = True
         )
 
