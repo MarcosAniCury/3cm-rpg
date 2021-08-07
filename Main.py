@@ -58,11 +58,11 @@ async def check_not_exist_player(ctx):
         await ctx.send("Você já possui uma ficha de personagem")
     return retorno
 
-async def check_not_exist_player(ctx):
+async def check_exist_player(ctx):
     id = ctx.author.id
-    retorno = not banco.check_player(id)
+    retorno = banco.check_player(id)
     if not retorno:
-        await ctx.send("Você já possui uma ficha de personagem")
+        await ctx.send("Você não possui uma ficha de personagem")
     return retorno
 
 #-----------Funcoes do Server Fim-----------
@@ -125,21 +125,21 @@ async def helpadm(ctx): #Help para administradores
 
 #-------------Tratamento de exceção Inicio-------------------
 
-# @client.event
-# async def on_command_error(ctx, error): #Tratamento de exceções
-#     if isinstance(error, commands.MissingRequiredArgument):
-#         await ctx.send("Por favor passe todos os argumentos necessários", delete_after = 20)
-#     elif isinstance(error, commands.CommandNotFound):
-#         await ctx.send("Comando não encontrado, digite help help para ver os comandos ativos", delete_after = 20)
-#         ctx.message.delete()
-#     elif isinstance(error, commands.NotOwner):
-#         await ctx.send("Apenas o dono do server pode executar esse comando", delete_after = 20)
-#     elif isinstance(error, commands.CheckFailure):
-#         pass
-#     else:
-#         await ctx.send("Erro encontrado, reporte a algum adm urgente:erro \""+error.args[0]+"\"", delete_after = 60)
-#         print(error)
-#         print("--------------------------------")
+@client.event
+async def on_command_error(ctx, error): #Tratamento de exceções
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Por favor passe todos os argumentos necessários", delete_after = 20)
+    elif isinstance(error, commands.CommandNotFound):
+        await ctx.send("Comando não encontrado, digite help help para ver os comandos ativos", delete_after = 20)
+        await ctx.message.delete()
+    elif isinstance(error, commands.NotOwner):
+        await ctx.send("Apenas o dono do server pode executar esse comando", delete_after = 20)
+    elif isinstance(error, commands.CheckFailure):
+        pass
+    else:
+        await ctx.send("Erro encontrado, reporte a algum adm urgente:erro \""+error.args[0]+"\"", delete_after = 60)
+        print(error)
+        print("--------------------------------")
     
 #-------------Tratamento de exceção Fim-------------------
 

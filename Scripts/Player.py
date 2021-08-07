@@ -3,6 +3,7 @@ from discord import channel
 from Armazenamento import CRUD
 from Armazenamento import Embeds3cm
 from Main import check_not_exist_player
+from Main import check_exist_player
 
 #Bibliotecas python
 import discord
@@ -150,6 +151,31 @@ class player(commands.Cog):
         await canal_privado.send("Player criado\n")
         await canal_privado.send(embed=player_profile)
 
+    @commands.command(aliases=["p"])
+    @commands.check(check_exist_player)
+    async def perfil(self, ctx): #Criar player
+        id = ctx.author.id
+        player = self.banco.read("players", {'id_player' : str(id)})
+        embed_player = self.embeds_obj.player_profile(player)
+        await ctx.send("__Aparece em sua frente uma tela com o login__",delete_after=10)
+        await ctx.author.send(embed=embed_player, delete_after=60)
+
+        #Canal de log
+        canal_privado = self.client.get_channel(873616219700334622)
+        await canal_privado.send("Player acessou seu profile")
+        await canal_privado.send(embed=embed_player)
+
+    @commands.command(aliases=["ds"])
+    @commands.check(check_exist_player)
+    async def descrição(self, ctx, Colecao, objeto):
+        objeto = objeto.capitalize()
+        objeto = objeto.replace('_', ' ')
+        dictObjeto = self.banco.read_colection(Colecao)
+        await ctx.send("**"+objeto+"** : "+dictObjeto[objeto]["descricao"])
+
+        #Canal de log
+        canal_privado = self.client.get_channel(873616219700334622)
+        await canal_privado.send("O usuário "+ctx.author.mention+" pesquisou a descricao de "+objeto)
                     
 #------------Rpg Class Fim-----------------
 
@@ -170,7 +196,6 @@ def gerar_random(banco,Colecao):
 
     #Atualizado
     item_atualizado[item_aleatorio]["utilizado"] = "True"
-    print(item_atualizado)
 
     banco.update_item(Colecao,item_atualizado)
     return item_aleatorio

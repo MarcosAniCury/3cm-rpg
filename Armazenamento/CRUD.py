@@ -24,6 +24,9 @@ class crud:
     def read(self,Colecao,item): #Ler um documento
         return self.banco[Colecao].find_one(item)
 
+    def read_colection(self,Colecao):
+        return self.banco[Colecao].find_one()
+
     def read_chose_random_one(self,Colecao): #Ler a coleção inteira
         return self.banco[Colecao].find_one()
 
