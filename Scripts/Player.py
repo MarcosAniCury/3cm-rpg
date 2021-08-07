@@ -15,6 +15,7 @@ class player(commands.Cog):
     def __init__(self,client):
         self.client = client
         self.banco = CRUD.crud()
+        self.embeds_obj = Embeds3cm.epic_3cm(client)
 
     #Evento
     @commands.Cog.listener()
@@ -30,11 +31,11 @@ class player(commands.Cog):
     @commands.command()
     @commands.has_permissions(administrator = True)
     #@commands.check(check_not_exist_player)
-    async def createplayer(self, ctx): #Criar player
+    async def createPlayer(self, ctx): #Criar player
         #Sortear uma classe
-        classesDict = self.banco.read_chose_random_one("classes")
-        classesDict.pop('_id') #remover id
-        classe_sorteada = random.choice(list(classesDict)) #pegar aleatoriamente uma classe
+        classe_dict = self.banco.read_chose_random_one("classes")
+        classe_dict.pop('_id') #remover id
+        classe_sorteada = random.choice(list(classe_dict)) #pegar aleatoriamente uma classe
 
         #Sortear estrelas
         numero_estrelas = random.uniform(1,100)
@@ -63,19 +64,22 @@ class player(commands.Cog):
         nome_personagem = await self.client.wait_for('message', check=lambda msg: msg.author == ctx.author, timeout=60)
 
         habilidade_sorteada = self.banco.read_chose_random_one("skills")
+        habilidade_sorteada.pop('_id')
 
         habilidades = {}
 
         for x in range(1,estrelas+1):
             habilidades[x] = None
 
-        habilidades[1] = random.choice(list(habilidade_sorteada))
-
-        await ctx.send("**SPOILER ALERT:** Nome:"+nome_personagem.content+" classe:"+classe_sorteada+" estrelas:"+str(estrelas)+" habilidade:"+habilidades[1]+" morto:False")
+        habilidades[1] = {
+            "habilidade": random.choice(list(habilidade_sorteada)),
+            "nivel": 1
+        }
 
         player = {
             "id_player": ctx.author.id,
-            "name": nome_personagem.content,
+            "nome": nome_personagem.content,
+            "level": 0,
             "classe": classe_sorteada,
             "estrelas": estrelas,
             "habilidades": habilidades,
@@ -87,10 +91,20 @@ class player(commands.Cog):
                 "car": 0,
                 "sor": 0
             },
-            "atibutos_variaveis": {
-                "mana": 20,
-                "estamina": 20,
-                "vida": 20,
+            "atributos_variaveis": {
+                "mana": {
+                    "maxima":20,
+                    "atual":20
+                },
+                "estamina": {
+                    "maxima":20,
+                    "atual":20
+                },
+                "vida": {
+                    "maxima":20,
+                    "atual":20
+                },
+                "xp": 0,
                 "evasao": 0,
                 "sorte": 0,
                 "pontos_atributos": 0
@@ -104,6 +118,9 @@ class player(commands.Cog):
 
             "morto": False
         }
+
+        player_profile = self.embeds_obj.player_profile(player)
+        await ctx.send(embed=player_profile)
                     
 #------------Rpg Class Fim-----------------
 

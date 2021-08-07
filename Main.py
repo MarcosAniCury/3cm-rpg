@@ -16,7 +16,7 @@ from discord.ext.commands.errors import CommandNotFound
 
 client = commands.Bot(intents = discord.Intents.all(), command_prefix=TOKENs.get_prefix())
 
-EmbedsObj = Embeds3cm.epic_3cm(client)
+embeds_obj = Embeds3cm.epic_3cm(client)
 banco = CRUD.crud()
 
 #----------Bot Status Inicio------------
@@ -40,9 +40,9 @@ async def on_resumed():
     print(client.user.name)
     print(client.user.id)
     print("----------------------")
-    global EmbedsObj 
+    global embeds_obj 
     global banco
-    EmbedsObj = Embeds3cm.epic_3cm(client)
+    embeds_obj = Embeds3cm.epic_3cm(client)
     banco = CRUD.crud()
 
     await client.change_presence(activity=discord.Game("\"3cm h\" alias \"cm h\"")) #Alterar status do bot
@@ -95,10 +95,10 @@ class MyHelp(commands.HelpCommand): #Overwrite help
 
     async def send_bot_help(self, mapping):
         channel = self.get_destination()
-        HelpEmbed = EmbedsObj.get_HelpCommand()
+        HelpEmbed = embeds_obj.get_embed_help_commands()
         await channel.send(embed=HelpEmbed)
 
-client.help_command = MyHelp() #Quando digitar <prefix> help vai chamar a funcao
+client.HelpCommand = MyHelp() #Quando digitar <prefix> help vai chamar a funcao
 #-------------Comandos Help Fim-----------
 
 #------------Comandos Importantes Inicio-----------
@@ -110,28 +110,28 @@ async def ping(ctx): #Comando para testar a latencia
 @client.command(aliases = ["hadm"])
 @commands.has_permissions(administrator = True)
 async def helpadm(ctx): #Help para administradores
-    HelpAdmEmbed = EmbedsObj.get_HelpAdmCommand()
+    HelpAdmEmbed = embeds_obj.get_help_adm_command()
     await ctx.send(embed=HelpAdmEmbed)
 
 #------------Comandos Importantes Fim-----------
 
 #-------------Tratamento de exceção Inicio-------------------
 
-@client.event
-async def on_command_error(ctx, error): #Tratamento de exceções
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("Por favor passe todos os argumentos necessários", delete_after = 20)
-    elif isinstance(error, commands.CommandNotFound):
-        await ctx.send("Comando não encontrado, digite help help para ver os comandos ativos", delete_after = 20)
-        ctx.message.delete()
-    elif isinstance(error, commands.NotOwner):
-        await ctx.send("Apenas o dono do server pode executar esse comando", delete_after = 20)
-    elif isinstance(error, commands.CheckFailure):
-        pass
-    else:
-        await ctx.send("Erro encontrado, reporte a algum adm urgente:erro \""+error.args[0]+"\"", delete_after = 60)
-        print(error)
-        print("--------------------------------")
+# @client.event
+# async def on_command_error(ctx, error): #Tratamento de exceções
+#     if isinstance(error, commands.MissingRequiredArgument):
+#         await ctx.send("Por favor passe todos os argumentos necessários", delete_after = 20)
+#     elif isinstance(error, commands.CommandNotFound):
+#         await ctx.send("Comando não encontrado, digite help help para ver os comandos ativos", delete_after = 20)
+#         ctx.message.delete()
+#     elif isinstance(error, commands.NotOwner):
+#         await ctx.send("Apenas o dono do server pode executar esse comando", delete_after = 20)
+#     elif isinstance(error, commands.CheckFailure):
+#         pass
+#     else:
+#         await ctx.send("Erro encontrado, reporte a algum adm urgente:erro \""+error.args[0]+"\"", delete_after = 60)
+#         print(error)
+#         print("--------------------------------")
         
 #-------------Tratamento de exceção Fim-------------------
 
