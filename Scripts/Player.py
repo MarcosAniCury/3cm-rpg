@@ -32,13 +32,13 @@ class Player(commands.Cog):
     #@commands.check(checkNotExistPlayer)
     async def createPlayer(self, ctx): #Criar player
         #Sortear uma classe
-        classesDict = self.banco.readColection("classes")
+        classesDict = self.banco.read_chose_random_one("classes")
         classesDict.pop('_id') #remover id
-        classeSorteada = random.choice(list(classesDict)) #pegar aleatoriamente uma classe
+        classe_sorteada = random.choice(list(classesDict)) #pegar aleatoriamente uma classe
 
         #Sortear estrelas
-        numeroEstrelas = random.uniform(1,100)
-        numeroEstrelas = int(numeroEstrelas)
+        numero_estrelas = random.uniform(1,100)
+        numero_estrelas = int(numero_estrelas)
 
         #Pegar estrela 
         # Tabela de Porcentagem
@@ -48,26 +48,38 @@ class Player(commands.Cog):
         # 91-99 - 9%
         # 100 - 1%
 
-        if numeroEstrelas <= 40:
-            Estrelas = 1
-        elif numeroEstrelas <= 70:
-            Estrelas = 2
-        elif numeroEstrelas <= 90:
-            Estrelas = 3
-        elif numeroEstrelas <= 99:
-            Estrelas = 4
+        if numero_estrelas <= 40:
+            estrelas = 1
+        elif numero_estrelas <= 70:
+            estrelas = 2
+        elif numero_estrelas <= 90:
+            estrelas = 3
+        elif numero_estrelas <= 99:
+            estrelas = 4
         else:
-            Estrelas = 5
+            estrelas = 5
 
         await ctx.send("Digite o nome do seu personagem:")
-        nomePersonagem = await self.client.wait_for('message', check=lambda msg: msg.author == ctx.author, timeout=60)
+        nome_personagem = await self.client.wait_for('message', check=lambda msg: msg.author == ctx.author, timeout=60)
+
+        habilidade_sorteada = self.banco.read_chose_random_one("skills")
+
+        habilidades = {}
+
+        for x in range(1,estrelas+1):
+            habilidades[x] = None
+
+        habilidades[1] = random.choice(list(habilidade_sorteada))
+
+        await ctx.send("**SPOILER ALERT:** Nome:"+nome_personagem.content+" classe:"+classe_sorteada+" estrelas:"+str(estrelas)+" habilidade:"+habilidades[1]+" morto:False")
 
         Player = {
-            "idPlayer": ctx.author.id,
-            "name": nomePersonagem.content,
-            "classe": classeSorteada,
-            "estrelas": Estrelas,
-            "atributosFixos": {
+            "id_player": ctx.author.id,
+            "name": nome_personagem.content,
+            "classe": classe_sorteada,
+            "estrelas": estrelas,
+            "habilidades": habilidades,
+            "atributos_fixos": {
                 "for": 0,
                 "des": 0,
                 "con": 0,
@@ -75,15 +87,18 @@ class Player(commands.Cog):
                 "car": 0,
                 "sor": 0
             },
-            "atibutosVariaveis": {
+            "atibutos_variaveis": {
                 "mana": 20,
                 "estamina": 20,
                 "vida": 20,
                 "evasao": 0,
                 "sorte": 0,
-                "pontosAtributos": 0
+                "pontos_atributos": 0
             },
             "pontos": {
+                "morte": 0,
+                "sobreviver": 0,
+                "especial_evento": 0,
                 "total": 0
             },
 
