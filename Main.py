@@ -50,11 +50,12 @@ async def on_resumed():
 #----------Bot Status Fim------------
 
 #-----------Funcoes do Server Inicio-----------
+
 async def check_not_exist_player(ctx):
     id = ctx.author.id
-    retorno = banco.check_player(id)
+    retorno = not banco.check_player(id)
     if not retorno:
-        await ctx.send("Você já possui um personagem criado.", delete_after=10)
+        await ctx.send("Você já possui uma ficha de personagem")
     return retorno
 
 #-----------Funcoes do Server Fim-----------

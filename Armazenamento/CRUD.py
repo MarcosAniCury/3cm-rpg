@@ -60,9 +60,9 @@ class crud:
             self.create_Servidores(Server)
 
     def check_player(self,id):
-        players = self.banco.players
+        players = self.banco['players']
         retorno = False
-        if(players.find_one({"playerId":id}) != None):
+        if(players.find_one({"id_player":str(id)}) != None):
             retorno = True
         return retorno
 

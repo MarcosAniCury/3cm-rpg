@@ -71,7 +71,7 @@ class epic_3cm:
             habilidade = playerdict["habilidades"][x]["habilidade"]
             nivel = playerdict["habilidades"][x]["nivel"]
 
-            if playerdict["habilidades"][x] == None:
+            if playerdict["habilidades"][x] == "None":
                 habilidades += f'**Habilidade {x}**: Slot Bloqueado\n'
             else:
                 habilidades += "**Habilidade "+x+"**:"+habilidade+"(nv"+nivel+")\n"
