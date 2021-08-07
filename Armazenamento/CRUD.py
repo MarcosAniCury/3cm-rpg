@@ -27,14 +27,9 @@ class crud:
     def read_chose_random_one(self,Colecao): #Ler a coleção inteira
         return self.banco[Colecao].find_one()
 
-    def update_Servidores(self,Server):
-        Obj = self.read_ServidoresById(Server["Server_id"])
-        conseguiu = False
-        if Obj != None:
-            self.Servidores.update_one({"Server_id" : Server["Server_id"]}, {"$set":Server})
-            conseguiu = True
-
-        return conseguiu
+    def update_item(self,Colecao,itemNew):
+        Obj = self.read(Colecao,itemNew['_id'])
+        return self.banco[Colecao].update_one(Obj,{'$set': itemNew})
 
     def delete_Servidores(self,Server_id):
         conseguiu = False

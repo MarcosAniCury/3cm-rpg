@@ -34,6 +34,7 @@ class epic_3cm:
         embed_help_commands.add_field(
             name="🏹RPG de Mesa Comandos⚔️",
             value = "`rd<numero de lados> <quantidades de vezes>` - Rodar um dado de n lados m vezes\n"
+            "`"+self.prefix+"createPlayer` - Criar um profile no rpg\n"
             "\nBot em construção, mais comandos serão adicionados no futuro",
             inline = False
         )
@@ -66,15 +67,13 @@ class epic_3cm:
     def player_profile(self,playerdict):#Embed for players profile
 
         habilidades = ""
-        for x in playerdict["habilidades"].keys():
-
-            habilidade = playerdict["habilidades"][x]["habilidade"]
-            nivel = playerdict["habilidades"][x]["nivel"]
-
-            if playerdict["habilidades"][x] == "None":
-                habilidades += f'**Habilidade {x}**: Slot Bloqueado\n'
+        for x in list(playerdict["habilidades"].items()):
+    
+            if (x[1] != "None"):
+                habilidade = list(x[1].values())
+                habilidades += "**Habilidade "+x[0]+"**:"+habilidade[0]+"(nv"+habilidade[1]+")\n"
             else:
-                habilidades += "**Habilidade "+x+"**:"+habilidade+"(nv"+nivel+")\n"
+                habilidades += f'**Habilidade {x[0]}**: Slot Bloqueado\n'
 
         player_profile = discord.Embed(
             colour = 0xBF00FF

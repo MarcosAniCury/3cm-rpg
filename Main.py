@@ -58,6 +58,13 @@ async def check_not_exist_player(ctx):
         await ctx.send("Você já possui uma ficha de personagem")
     return retorno
 
+async def check_not_exist_player(ctx):
+    id = ctx.author.id
+    retorno = not banco.check_player(id)
+    if not retorno:
+        await ctx.send("Você já possui uma ficha de personagem")
+    return retorno
+
 #-----------Funcoes do Server Fim-----------
 
 #-----------Modulos Inicio-------------
@@ -99,7 +106,7 @@ class MyHelp(commands.HelpCommand): #Overwrite help
         HelpEmbed = embeds_obj.get_embed_help_commands()
         await channel.send(embed=HelpEmbed)
 
-client.HelpCommand = MyHelp() #Quando digitar <prefix> help vai chamar a funcao
+client.help_command = MyHelp() #Quando digitar <prefix> help vai chamar a funcao
 #-------------Comandos Help Fim-----------
 
 #------------Comandos Importantes Inicio-----------
@@ -133,7 +140,7 @@ async def helpadm(ctx): #Help para administradores
 #         await ctx.send("Erro encontrado, reporte a algum adm urgente:erro \""+error.args[0]+"\"", delete_after = 60)
 #         print(error)
 #         print("--------------------------------")
-        
+    
 #-------------Tratamento de exceção Fim-------------------
 
 client.run(TOKENs.get_token()) #Token do bot

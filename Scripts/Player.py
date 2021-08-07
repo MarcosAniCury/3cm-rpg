@@ -32,9 +32,7 @@ class player(commands.Cog):
     @commands.check(check_not_exist_player)
     async def createPlayer(self, ctx): #Criar player
         #Sortear uma classe
-        classe_dict = self.banco.read_chose_random_one("classes")
-        classe_dict.pop('_id') #remover id
-        classe_sorteada = random.choice(list(classe_dict)) #pegar aleatoriamente uma classe
+        classe_sorteada = gerar_random(self.banco,"classes")
 
         #Sortear estrelas
         numero_estrelas = random.uniform(1,100)
@@ -64,16 +62,13 @@ class player(commands.Cog):
         nome_personagem = await self.client.wait_for('message', check=lambda msg: msg.author == ctx.author, timeout=60)
 
         #sortear habilidade inicial
-        habilidades_gerada = self.banco.read_chose_random_one("skills")
-        habilidades_gerada.pop('_id')
-
         habilidades = {}
 
         for x in range(1,estrelas+1):
             habilidades[str(x)] = "None"
 
         habilidades["1"] = {
-            "habilidade": random.choice(list(habilidades_gerada)),
+            "habilidade": gerar_random(self.banco, "skills"),
             "nivel": '1'
         }
 
@@ -163,5 +158,21 @@ def setup(client): #Ativa o Cog
 
 #-----------Funcoes do Cog Inicio-----------
 
+def gerar_random(banco,Colecao):
+    item_gerado = banco.read_chose_random_one(Colecao)
+    #Copy do item para atualizar
+    item_atualizado = item_gerado.copy()
+
+    item_gerado.pop('_id')
+    item_aleatorio = random.choice(list(item_gerado))
+    while item_gerado[item_aleatorio]['utilizado'] == "True":
+        item_aleatorio = random.choice(list(item_gerado))
+
+    #Atualizado
+    item_atualizado[item_aleatorio]["utilizado"] = "True"
+    print(item_atualizado)
+
+    banco.update_item(Colecao,item_atualizado)
+    return item_aleatorio
 
 #-----------Funcoes do Cog Fim-----------
