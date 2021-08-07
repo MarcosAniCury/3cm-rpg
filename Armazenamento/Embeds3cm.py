@@ -66,19 +66,22 @@ class epic_3cm:
     def player_profile(self,playerdict):#Embed for players profile
 
         habilidades = ""
-        habilidades_values = list(playerdict["habilidades"].values())
         for x in playerdict["habilidades"].keys():
-            if habilidades_values[x-1] == None:
-                habilidades += f'**Habilidade {str(x)}**: Slot Bloqueado'
+
+            habilidade = playerdict["habilidades"][x]["habilidade"]
+            nivel = playerdict["habilidades"][x]["nivel"]
+
+            if playerdict["habilidades"][x] == None:
+                habilidades += f'**Habilidade {x}**: Slot Bloqueado\n'
             else:
-                habilidades += f'**Habilidade {str(x)}**:{habilidades_values[x-1]["habilidade"]}(nv{habilidades_values[x-1]["nivel"]})\n'
+                habilidades += "**Habilidade "+x+"**:"+habilidade+"(nv"+nivel+")\n"
 
         player_profile = discord.Embed(
             colour = 0xBF00FF
         )
 
         player_info = "**Player Info**"
-        if playerdict["morto"]:
+        if playerdict["morto"] == "True":
             player_info += " (**MORTO**)"
 
         player_profile.add_field(
@@ -112,7 +115,7 @@ class epic_3cm:
             inline = True
         )
 
-        player_foto_url = self.client.get_user(playerdict["id_player"]).avatar_url
+        player_foto_url = self.client.get_user(int(playerdict["id_player"])).avatar_url
         player_profile.set_footer(text="Develop by:Miko#9331", icon_url=self.client.get_user(239498713347653633).avatar_url)
         player_profile.set_author(name=playerdict["nome"]+" Profile", icon_url= player_foto_url)
         player_profile.set_thumbnail(url= player_foto_url)
