@@ -61,6 +61,13 @@ class epic_3cm:
             "`"+self.prefix+"reiniciar_modulo <modulo>` - reiniciar um modulo do bot\n\u200b",
         )
 
+        help_adm_command.add_field(
+            name="🏹RPG de Mesa Comandos ADM⚔️",
+            value = "`"+self.prefix+"statusUpdate <mention player> <status> <value>` - alterar o status de um jogador\n"
+            "\nBot em construção, mais comandos serão adicionados no futuro",
+            inline = False
+        )
+
         help_adm_command.set_footer(text="Develop by:Miko#9331", icon_url=f'{self.client.get_user(239498713347653633).avatar_url}')
         help_adm_command.set_author(name="3cm Rpg", icon_url=f'{self.client.get_user(869952210979663883).avatar_url}')
 
