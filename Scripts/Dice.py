@@ -1,11 +1,8 @@
 #Meus arquivos .py
 from discord import channel
 from Armazenamento import CRUD
-from Armazenamento import Embeds3cm
 
 #Bibliotecas python
-import discord
-import asyncio
 import random
 from discord.ext import commands
 

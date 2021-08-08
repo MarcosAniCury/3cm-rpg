@@ -1,12 +1,11 @@
 #Meus arquivos .py
-from discord import channel
 from Armazenamento import CRUD
 from Armazenamento import Embeds3cm
 from Main import check_not_exist_player
 from Main import check_exist_player
+from Main import find_player_by_id
 
 #Bibliotecas python
-import discord
 import asyncio
 import random
 from discord.ext import commands
@@ -102,6 +101,7 @@ class player(commands.Cog):
                     "atual":'20'
                 },
                 "xp": '0',
+                "xp_maximo" : '100',
                 "evasao": '0',
                 "sorte": '0',
                 "pontos_atributos": '0'
@@ -147,23 +147,23 @@ class player(commands.Cog):
         #Enviar para o privado
         await ctx.author.send(embed=player_profile, delete_after=60)
         #Enviar para o canal privado
-        canal_privado = self.client.get_channel(873616219700334622)
-        await canal_privado.send("Player criado\n")
-        await canal_privado.send(embed=player_profile)
+        canal_log = self.client.get_channel(873616219700334622)
+        await canal_log.send("Player criado\n")
+        await canal_log.send(embed=player_profile)
 
     @commands.command(aliases=["p"])
     @commands.check(check_exist_player)
     async def perfil(self, ctx): #Criar player
         id = ctx.author.id
-        player = self.banco.read("players", {'id_player' : str(id)})
+        player = find_player_by_id(ctx,self.banco,id)
         embed_player = self.embeds_obj.player_profile(player)
         await ctx.send("__Aparece em sua frente uma tela com o login__",delete_after=10)
         await ctx.author.send(embed=embed_player, delete_after=60)
 
         #Canal de log
-        canal_privado = self.client.get_channel(873616219700334622)
-        await canal_privado.send("Player acessou seu profile")
-        await canal_privado.send(embed=embed_player)
+        canal_log = self.client.get_channel(873616219700334622)
+        await canal_log.send("Player acessou seu profile")
+        await canal_log.send(embed=embed_player)
 
     @commands.command(aliases=["ds"])
     @commands.check(check_exist_player)
@@ -174,8 +174,8 @@ class player(commands.Cog):
         await ctx.send("**"+objeto+"** : "+dictObjeto[objeto]["descricao"])
 
         #Canal de log
-        canal_privado = self.client.get_channel(873616219700334622)
-        await canal_privado.send("O usuário "+ctx.author.mention+" pesquisou a descricao de "+objeto)
+        canal_log = self.client.get_channel(873616219700334622)
+        await canal_log.send("O usuário "+ctx.author.mention+" pesquisou a descricao de "+objeto)
                     
 #------------Rpg Class Fim-----------------
 

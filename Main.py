@@ -6,13 +6,8 @@ from Armazenamento import CRUD
 #Bibliotecas python
 import discord
 import os
-import random
 import discord.ext.commands
-from asyncio.events import Handle
-from discord import embeds
 from discord.ext import commands
-from pymongo import MongoClient
-from discord.ext.commands.errors import CommandNotFound
 
 client = commands.Bot(intents = discord.Intents.all(), command_prefix=TOKENs.get_prefix())
 
@@ -63,6 +58,25 @@ async def check_exist_player(ctx):
     retorno = banco.check_player(id)
     if not retorno:
         await ctx.send("Você não possui uma ficha de personagem")
+    return retorno
+
+def find_player_by_id(ctx,banco,id):
+    id = ctx.author.id
+    player = banco.read("players", {'id_player' : str(id)})
+    return player
+
+async def update_status(dict_player, status, valor):
+
+    retorno = None
+    valorMaximo = dict_player['atributos_variaveis'][status]['maxima']
+    valorAnterior = dict_player['atributos_variaveis'][status]['atual']
+    dict_player['atributos_variaveis'][status]['atual'] = str(int(valor) + int(valorAnterior))
+    valorAtual = dict_player['atributos_variaveis'][status]['atual']
+    #Caso ultrapasse de zero
+    if int(valorAnterior) + int(valor) < 0 and status == "vida":
+        valorAtual = "0"
+    if int(valorAtual) <= int(valorMaximo) and int(valorAnterior) + int(valor) >= 0:
+        retorno = [dict_player,valorAtual,valorMaximo]
     return retorno
 
 #-----------Funcoes do Server Fim-----------
@@ -125,21 +139,21 @@ async def helpadm(ctx): #Help para administradores
 
 #-------------Tratamento de exceção Inicio-------------------
 
-@client.event
-async def on_command_error(ctx, error): #Tratamento de exceções
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("Por favor passe todos os argumentos necessários", delete_after = 20)
-    elif isinstance(error, commands.CommandNotFound):
-        await ctx.send("Comando não encontrado, digite help help para ver os comandos ativos", delete_after = 20)
-        await ctx.message.delete()
-    elif isinstance(error, commands.NotOwner):
-        await ctx.send("Apenas o dono do server pode executar esse comando", delete_after = 20)
-    elif isinstance(error, commands.CheckFailure):
-        pass
-    else:
-        await ctx.send("Erro encontrado, reporte a algum adm urgente:erro \""+error.args[0]+"\"", delete_after = 60)
-        print(error)
-        print("--------------------------------")
+# @client.event
+# async def on_command_error(ctx, error): #Tratamento de exceções
+#     if isinstance(error, commands.MissingRequiredArgument):
+#         await ctx.send("Por favor passe todos os argumentos necessários", delete_after = 20)
+#     elif isinstance(error, commands.CommandNotFound):
+#         await ctx.send("Comando não encontrado, digite help help para ver os comandos ativos", delete_after = 20)
+#         await ctx.message.delete()
+#     elif isinstance(error, commands.NotOwner):
+#         await ctx.send("Apenas o dono do server pode executar esse comando", delete_after = 20)
+#     elif isinstance(error, commands.CheckFailure):
+#         pass
+#     else:
+#         await ctx.send("Erro encontrado, reporte a algum adm urgente:erro \""+error.args[0]+"\"", delete_after = 60)
+#         print(error)
+#         print("--------------------------------")
     
 #-------------Tratamento de exceção Fim-------------------
 
