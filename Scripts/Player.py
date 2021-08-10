@@ -100,8 +100,11 @@ class player(commands.Cog):
                     "maxima": '20',
                     "atual":'20'
                 },
-                "xp": '0',
-                "xp_maximo" : '100',
+                "xp": {
+                    "atual" : '0',
+                    "maximo" : '100',
+                    "level" : '0'
+                },
                 "evasao": '0',
                 "sorte": '0',
                 "pontos_atributos": '0'

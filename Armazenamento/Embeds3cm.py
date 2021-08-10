@@ -95,15 +95,17 @@ class epic_3cm:
         player_profile.add_field(
             name=player_info, 
             value ="**Classe**:"+playerdict["classe"]+"\n"
-            "**Estrelas**:"+str(playerdict["estrelas"])+"\n"+habilidades,
+            "**Estrelas**:"+playerdict["estrelas"]+"\n"+habilidades,
             inline = False
         )
 
         player_profile.add_field(
             name="**Status**",
-            value = "❤️**Vida**:"+str(playerdict["atributos_variaveis"]["vida"]["atual"])+"/"+str(playerdict["atributos_variaveis"]["vida"]["maxima"])+"\n"
-            "☄️**Mana**:"+str(playerdict["atributos_variaveis"]["mana"]["atual"])+"/"+str(playerdict["atributos_variaveis"]["mana"]["maxima"])+"\n"
-            "🏃**Estamina**:"+str(playerdict["atributos_variaveis"]["estamina"]["atual"])+"/"+str(playerdict["atributos_variaveis"]["estamina"]["maxima"]),
+            value ="🔰**Level**:"+playerdict["atributos_variaveis"]['xp']['level']+"\n"
+            "✨**XP**:"+playerdict["atributos_variaveis"]['xp']['atual']+"/"+playerdict["atributos_variaveis"]['xp']['maximo']+"\n" 
+            "❤️**Vida**:"+playerdict["atributos_variaveis"]["vida"]["atual"]+"/"+playerdict["atributos_variaveis"]["vida"]["maxima"]+"\n"
+            "☄️**Mana**:"+playerdict["atributos_variaveis"]["mana"]["atual"]+"/"+playerdict["atributos_variaveis"]["mana"]["maxima"]+"\n"
+            "🏃**Estamina**:"+playerdict["atributos_variaveis"]["estamina"]["atual"]+"/"+playerdict["atributos_variaveis"]["estamina"]["maxima"],
             inline = False
         )
 
@@ -117,9 +119,9 @@ class epic_3cm:
 
         player_profile.add_field(
             name="\u200b",
-            value = "🧙‍♂️**Int**:"+str(playerdict["atributos_fixos"]["int"])+"\n"
-            "😜**Car**:"+str(playerdict["atributos_fixos"]["car"])+"\n"
-            "🍀**Sor**:"+str(playerdict["atributos_fixos"]["sor"])+"\n",
+            value = "🧠**Int**:"+playerdict["atributos_fixos"]["int"]+"\n"
+            "😜**Car**:"+playerdict["atributos_fixos"]["car"]+"\n"
+            "🍀**Sor**:"+playerdict["atributos_fixos"]["sor"]+"\n",
             inline = True
         )
 

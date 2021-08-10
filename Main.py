@@ -65,7 +65,7 @@ def find_player_by_id(ctx,banco,id):
     player = banco.read("players", {'id_player' : str(id)})
     return player
 
-async def update_status(dict_player, status, valor):
+async def update_status(dict_player, status, valor): #Cria uma nova Referencia
 
     retorno = None
     valorMaximo = dict_player['atributos_variaveis'][status]['maxima']
@@ -78,6 +78,18 @@ async def update_status(dict_player, status, valor):
     if int(valorAtual) <= int(valorMaximo) and int(valorAnterior) + int(valor) >= 0:
         retorno = [dict_player,valorAtual,valorMaximo]
     return retorno
+
+def add_XP(ctx, dict_player, amount_xp): #Altera a Referencia
+
+    xp_atual = int(dict_player['atributos_variaveis']['xp']['atual'])
+    dict_player['atributos_variaveis']['xp']['atual'] = str(amount_xp + xp_atual)
+    xp_atual = amount_xp + xp_atual
+    xp_maximo = int(dict_player['atributos_variaveis']['xp']['maximo'])
+    if xp_atual >= xp_maximo:
+        dict_player['atributos_variaveis']['xp']['atual'] = str(xp_atual - xp_maximo)
+        dict_player['atributos_variaveis']['xp']['maximo'] = str(xp_maximo + 100) 
+        level_atual = int(dict_player['atributos_variaveis']['xp']['level']) + 1
+        dict_player['atributos_variaveis']['xp']['level'] = str(level_atual)
 
 #-----------Funcoes do Server Fim-----------
 
