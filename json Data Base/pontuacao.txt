@@ -13,3 +13,6 @@ SORTE / 0
 
 PONTOS / 0
 
+XP = 100 / lv XP + 100
+
+

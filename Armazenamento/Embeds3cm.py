@@ -37,6 +37,7 @@ class epic_3cm:
             "`"+self.prefix+"createPlayer` - Criar um profile no rpg\n"
             "`"+self.prefix+"perfil` - Pode olhar seu profile no rpg\n"
             "`"+self.prefix+"descrição <classes/skills> <nome>` - Olhar a descrição de algo (substituir o espaço por _ no nome)\n"
+            "`"+self.prefix+"distribuirPontos` - distribuir os pontos que você possui\n"
             "\nBot em construção, mais comandos serão adicionados no futuro",
             inline = False
         )
@@ -75,6 +76,7 @@ class epic_3cm:
 
     def player_profile(self,playerdict):#Embed for players profile
 
+        #adicionar habilidades
         habilidades = ""
         for x in list(playerdict["habilidades"].items()):
     
@@ -83,6 +85,14 @@ class epic_3cm:
                 habilidades += "**Habilidade "+x[0]+"**:"+habilidade[0]+"(nv"+habilidade[1]+")\n"
             else:
                 habilidades += f'**Habilidade {x[0]}**: Slot Bloqueado\n'
+
+        #adicionar pontos para distribuir
+        atributos_fixos = "👊**For**:"+playerdict["atributos_fixos"]["for"]+"\n"
+        atributos_fixos +="👟**Des**:"+playerdict["atributos_fixos"]["des"]+"\n"
+        atributos_fixos +="💓**Con**:"+playerdict["atributos_fixos"]["con"]+"\n"
+
+        if int(playerdict['atributos_variaveis']['pontos_atributos']) > 0:
+            atributos_fixos += "\n**Pontos há distribuir**:"+playerdict['atributos_variaveis']['pontos_atributos']+"\n"
 
         player_profile = discord.Embed(
             colour = 0xBF00FF
@@ -111,9 +121,7 @@ class epic_3cm:
 
         player_profile.add_field(
             name="**Atributos**",
-            value = "👊**For**:"+str(playerdict["atributos_fixos"]["for"])+"\n"
-            "👟**Des**:"+str(playerdict["atributos_fixos"]["des"])+"\n"
-            "💓**Con**:"+str(playerdict["atributos_fixos"]["con"])+"\n",
+            value = atributos_fixos,
             inline = True
         )
 

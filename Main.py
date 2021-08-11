@@ -60,7 +60,7 @@ async def check_exist_player(ctx):
         await ctx.send("Você não possui uma ficha de personagem")
     return retorno
 
-def find_player_by_id(ctx,banco,id):
+def find_player_by_id(ctx,banco):
     id = ctx.author.id
     player = banco.read("players", {'id_player' : str(id)})
     return player

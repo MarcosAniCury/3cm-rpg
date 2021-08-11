@@ -158,7 +158,7 @@ class player(commands.Cog):
     @commands.check(check_exist_player)
     async def perfil(self, ctx): #Criar player
         id = ctx.author.id
-        player = find_player_by_id(ctx,self.banco,id)
+        player = find_player_by_id(ctx,self.banco)
         embed_player = self.embeds_obj.player_profile(player)
         await ctx.send("__Aparece em sua frente uma tela com o login__",delete_after=10)
         await ctx.author.send(embed=embed_player, delete_after=60)
@@ -179,7 +179,42 @@ class player(commands.Cog):
         #Canal de log
         canal_log = self.client.get_channel(873616219700334622)
         await canal_log.send("O usuário "+ctx.author.mention+" pesquisou a descricao de "+objeto)
-                    
+
+    @commands.command(aliases=["dp"])
+    @commands.check(check_exist_player)
+    async def distribuirPontos(self, ctx):
+        id = ctx.author.id
+        player = find_player_by_id(ctx,self.banco)
+        pontos_distribuir = int(player['atributos_variaveis']['pontos_atributos'])
+        if pontos_distribuir <= 0: 
+            await ctx.send("Você não possui pontos para distribuir", delete_after=20)
+
+        #Canal de Log
+        canal_log = self.client.get_channel(873616219700334622)
+
+        while pontos_distribuir > 0:
+            await ctx.send("Você possui **"+str(pontos_distribuir)+"** pontos para distribuir, digite qual o atributo e quantos pontos você deseja colocar (Digite **não** para cancelar):\nEX:**For 5**", delete_after=60)
+            input_pontos = await self.client.wait_for('message', check=lambda msg: msg.author == ctx.author, timeout=60)
+            input = input_pontos.content.lower().split()
+            if input_pontos.content.lower() == 'não' or input_pontos.content.lower() == 'n':
+                await ctx.send("Cancelando operação", delete_after=10)
+                pontos_distribuir = 0
+            elif int(input[1]) <=  pontos_distribuir:
+                player['atributos_fixos'][input[0]] = str(int(player['atributos_fixos'][input[0]]) + int(input[1]))
+                player['atributos_variaveis']['pontos_atributos'] = str(int(player['atributos_variaveis']['pontos_atributos']) - int(input[1]))
+                pontos_distribuir = int(player['atributos_variaveis']['pontos_atributos'])
+                await ctx.send("__Tem certeza que você vai adicionar **"+input[1]+"** pontos em **"+input[0]+"** (S/N):__", delete_after=60)
+                input_confirmacao = await self.client.wait_for('message', check=lambda msg: msg.author == ctx.author, timeout=60)
+                input_confirmacao = input_confirmacao.content.lower()
+                if input_confirmacao == 's' or input_confirmacao == 'sim':
+                    self.banco.update_item("players", player)
+                    await ctx.send("distribuição de pontos bem sucedida, digite `3cm perfil` para verificar", delete_after=30)
+                    await canal_log.send("O jogador "+ctx.author.mention+" adicionou **"+input[1]+"** pontos no atributo "+input[0])
+            else:
+                await ctx.send("Operação inválida, cancelando operação", delete_after=10)
+                pontos_distribuir = 0
+                
+
 #------------Rpg Class Fim-----------------
 
 def setup(client): #Ativa o Cog

@@ -152,5 +152,6 @@ TOKENs.py
 commanddescart.py
 classes.json
 skills.json
+pontuacao.txt
 
 # End of https://www.toptal.com/developers/gitignore/api/python
