@@ -6,9 +6,6 @@ from Armazenamento import CRUD
 import random
 from discord.ext import commands
 
-global iniciativa
-iniciativa = []
-
 class dice(commands.Cog):
 
     def __init__(self,client):
@@ -70,10 +67,6 @@ class dice(commands.Cog):
                     else:
                         returnFunc += " --- `Inimigo`"
                     await message.channel.send(returnFunc)
-        
-    @commands.command()
-    async def iniciativa(self, ctx):
-        await ctx.send('ok')
                     
 #------------Rpg Class Fim-----------------
 

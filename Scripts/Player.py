@@ -170,15 +170,40 @@ class player(commands.Cog):
 
     @commands.command(aliases=["ds"])
     @commands.check(check_exist_player)
-    async def descrição(self, ctx, Colecao, objeto):
-        objeto = objeto.capitalize()
-        objeto = objeto.replace('_', ' ')
-        dictObjeto = self.banco.read_colection(Colecao)
-        await ctx.send("**"+objeto+"** : "+dictObjeto[objeto]["descricao"])
+    async def descrição(self, ctx):
+        await ctx.send("Você procura a descrição de uma classe ou uma habilidade (classe/habilidade)?", delete_after=60)
+        input_colecao = await self.client.wait_for('message', check=lambda msg: msg.author == ctx.author, timeout=60)
+        input_colecao = input_colecao.content.lower()
 
-        #Canal de log
-        canal_log = self.client.get_channel(873616219700334622)
-        await canal_log.send("O usuário "+ctx.author.mention+" pesquisou a descricao de "+objeto)
+        if input_colecao == "classe" or input_colecao == "c":
+            await ctx.send("Digite o nome da classe:", delete_after=60)
+            input_objeto = await self.client.wait_for('message', check=lambda msg: msg.author == ctx.author, timeout=60)
+            input_objeto = input_objeto.content.lower().capitalize()
+
+            input_colecao = "classes"
+
+            dict_objeto = self.banco.read_colection(input_colecao)
+            await ctx.send("**"+input_objeto+"** : "+dict_objeto[input_objeto]["descricao"])     
+
+            #Canal de log
+            canal_log = self.client.get_channel(873616219700334622)
+            await canal_log.send("O usuário "+ctx.author.mention+" pesquisou a descricao de "+input_objeto)
+        elif input_colecao == "habilidade" or input_colecao == "h":
+            await ctx.send("Digite o nome da habilidade:", delete_after=60)
+            input_objeto = await self.client.wait_for('message', check=lambda msg: msg.author == ctx.author, timeout=60)
+            input_objeto = input_objeto.content.lower().capitalize()
+
+            input_colecao = "skills"
+
+            dict_objeto = self.banco.read_colection(input_colecao)
+            await ctx.send("**"+input_objeto+"** : "+dict_objeto[input_objeto]["descricao"])     
+
+            #Canal de log
+            canal_log = self.client.get_channel(873616219700334622)
+            await canal_log.send("O usuário "+ctx.author.mention+" pesquisou a descricao de "+input_objeto)
+
+        else:
+            await ctx.send("Valor inválido, cancelando operação.")
 
     @commands.command(aliases=["dp"])
     @commands.check(check_exist_player)
