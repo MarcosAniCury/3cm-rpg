@@ -207,7 +207,7 @@ class player(commands.Cog):
 
     @commands.command(aliases=["dp"])
     @commands.check(check_exist_player)
-    async def distribuirPontos(self, ctx):
+    async def distribuir_pontos(self, ctx):
         id = ctx.author.id
         player = find_player_by_id(ctx,self.banco)
         pontos_distribuir = int(player['atributos_variaveis']['pontos_atributos'])

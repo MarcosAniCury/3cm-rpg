@@ -37,7 +37,7 @@ class epic_3cm:
             "`"+self.prefix+"createPlayer` - Criar um profile no rpg\n"
             "`"+self.prefix+"perfil` - Pode olhar seu profile no rpg\n"
             "`"+self.prefix+"descrição <classes/skills> <nome>` - Olhar a descrição de algo (substituir o espaço por _ no nome)\n"
-            "`"+self.prefix+"distribuirPontos` - distribuir os pontos que você possui\n"
+            "`"+self.prefix+"distribuir_pontos` - distribuir os pontos que você possui\n"
             "\nBot em construção, mais comandos serão adicionados no futuro",
             inline = False
         )
@@ -64,7 +64,8 @@ class epic_3cm:
 
         help_adm_command.add_field(
             name="🏹RPG de Mesa Comandos ADM⚔️",
-            value = "`"+self.prefix+"statusUpdate <mention player> <status> <value>` - alterar o status de um jogador\n"
+            value = "`"+self.prefix+"status_update <mention player> <status> <value>` - alterar o status de um jogador\n"
+            "`"+self.prefix+"add_xp <mention player> <value>` - adiciona ou remove xp de um player"
             "\nBot em construção, mais comandos serão adicionados no futuro",
             inline = False
         )
