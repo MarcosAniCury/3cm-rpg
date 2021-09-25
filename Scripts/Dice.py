@@ -34,13 +34,13 @@ class dice(commands.Cog):
         if message.author.id != self.client.user.id:
             if message.content.lower().startswith("rd"):
                 mensagem = message.content.split()
-                number = int(mensagem[0][2:])#Pega os numeros apos o 'rd'
+                number = eval(mensagem[0][2:])#Pega os numeros apos o 'rd'
 
                 if len(mensagem) == 1: #ve quantos loops tem que dar
                     loops = 1
                 else:
                     loops = int(mensagem[1])
-                    if loops > 20: #para ninguem usar mais de 50 dados
+                    if loops > 20: #para ninguem usar mais de 20 dados
                         loops = 20
                         await message.channel.send("**NÃO PODE MAIS DE 20 OTÁRIO**")
 
