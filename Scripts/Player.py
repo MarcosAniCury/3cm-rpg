@@ -30,7 +30,7 @@ class player(commands.Cog):
 
     @commands.command()
     @commands.check(check_not_exist_player)
-    async def createPlayer(self, ctx): #Criar player
+    async def criar_ficha(self, ctx): #Criar player
         #Sortear uma classe
         classe_sorteada = gerar_random(self.banco,"classes")
 
@@ -160,7 +160,7 @@ class player(commands.Cog):
         id = ctx.author.id
         player = find_player_by_id(ctx,self.banco)
         embed_player = self.embeds_obj.player_profile(player)
-        await ctx.send("__Aparece em sua frente uma tela com o login__",delete_after=10)
+        await ctx.send("__Aparece em sua frente uma tela, acessando perfil do player__",delete_after=10)
         await ctx.author.send(embed=embed_player, delete_after=60)
 
         #Canal de log

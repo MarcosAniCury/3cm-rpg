@@ -28,9 +28,9 @@ class master_table(commands.Cog):
         print("Modulo master_table desconectado")
         print("---------------------")
 
-    @commands.command(aliases=["su"])
+    @commands.command(aliases=["as"])
     @commands.is_owner()
-    async def status_update(self, ctx, player : discord.Member, status, valor):
+    async def atualizar_status(self, ctx, player : discord.Member, status, valor):
         status = status.lower()
         dict_player = find_player_by_id(ctx,self.banco)
         dict_player_update = await update_status(dict_player.copy(),status,valor)
