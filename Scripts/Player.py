@@ -158,7 +158,7 @@ class player(commands.Cog):
     @commands.check(check_exist_player)
     async def perfil(self, ctx): #Criar player
         id = ctx.author.id
-        player = find_player_by_id(ctx,self.banco)
+        player = find_player_by_id(ctx.author.id,self.banco)
         embed_player = self.embeds_obj.player_profile(player)
         await ctx.send("__Aparece em sua frente uma tela, acessando perfil do player__",delete_after=10)
         await ctx.author.send(embed=embed_player, delete_after=60)
@@ -209,7 +209,7 @@ class player(commands.Cog):
     @commands.check(check_exist_player)
     async def distribuir_pontos(self, ctx):
         id = ctx.author.id
-        player = find_player_by_id(ctx,self.banco)
+        player = find_player_by_id(ctx.author.id,self.banco)
         pontos_distribuir = int(player['atributos_variaveis']['pontos_atributos'])
         if pontos_distribuir <= 0: 
             await ctx.send("Você não possui pontos para distribuir", delete_after=20)

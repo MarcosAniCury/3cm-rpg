@@ -32,7 +32,7 @@ class master_table(commands.Cog):
     @commands.is_owner()
     async def atualizar_status(self, ctx, player : discord.Member, status, valor):
         status = status.lower()
-        dict_player = find_player_by_id(player,self.banco)
+        dict_player = find_player_by_id(player.id,self.banco)
         dict_player_update = await update_status(dict_player.copy(),status,valor)
 
         #Canal de log
@@ -49,7 +49,7 @@ class master_table(commands.Cog):
     @commands.command(aliases=["ax"])
     @commands.is_owner()
     async def add_xp(self, ctx, player : discord.Member, valor):
-        dict_player = find_player_by_id(ctx,self.banco)
+        dict_player = find_player_by_id(player.id,self.banco)
         level_anterior = dict_player['atributos_variaveis']['xp']['level']
 
         add_XP(ctx, dict_player.copy(), int(valor))
