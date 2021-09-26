@@ -36,7 +36,7 @@ class epic_3cm:
             value = "`rd<numero de lados> <quantidades de vezes>` - Rodar um dado de n lados m vezes\n"
             "`"+self.prefix+"criar_ficha` - Criar um profile no rpg\n"
             "`"+self.prefix+"perfil` - Pode olhar seu profile no rpg\n"
-            "`"+self.prefix+"descrição <classes/skills> <nome>` - Olhar a descrição de algo (substituir o espaço por _ no nome)\n"
+            "`"+self.prefix+"descrição` - Olhar a descrição de algo (substituir o espaço por _ no nome)\n"
             "`"+self.prefix+"distribuir_pontos` - distribuir os pontos que você possui\n"
             "\nBot em construção, mais comandos serão adicionados no futuro",
             inline = False
