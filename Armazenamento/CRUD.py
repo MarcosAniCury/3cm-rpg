@@ -2,16 +2,17 @@
 from Armazenamento import TOKENs
 
 #Bibliotecas python
-from pymongo import MongoClient
+import pyodbc
 
 class crud:
 
     #Construtor
     def __init__(self):
-        DB = MongoClient(TOKENs.get_tokenDB())
-        self.banco = DB.cm3
-        print("Conexão com o MongoDB realizada")
+        DB = pyodbc.connect('DRIVER= '+ TOKENs.get_driver_azure() + '; SERVER=tcp:'+TOKENs.get_server_azure()+';PORT=1433;DATABASE='+TOKENs.get_database_name_azure()+';UID='+TOKENs.get_user_name_azure()+';PWD='+ TOKENs.get_password_name_azure())        
+        self.banco = DB.cursor()
+        print("Conexão com a Azure realizada")
         print("------------------------------")
+        self.banco.execute("INSERT INTO modify (type_target, target, type_modify, value) VALUES ('teste','target_teste','cansei','testei dnv')")
 
     #--------Colection Servidores Inicio--------
 
