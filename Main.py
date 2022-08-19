@@ -9,7 +9,7 @@ import os
 import discord.ext.commands
 from discord.ext import commands
 
-client = commands.Bot(intents = discord.Intents.all(), command_prefix=TOKENs.get_prefix())
+client = commands.Bot(intents = discord.Intents.default(), command_prefix=TOKENs.get_prefix())
 
 embeds_obj = Embeds3cm.epic_3cm(client)
 banco = CRUD.crud()
