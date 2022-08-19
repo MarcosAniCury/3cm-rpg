@@ -9,7 +9,7 @@ import os
 import discord.ext.commands
 from discord.ext import commands
 
-client = commands.Bot(intents = discord.Intents.default(), command_prefix=TOKENs.get_prefix())
+client = commands.Bot(command_prefix=TOKENs.get_prefix(), intents = discord.Intents.all())
 
 embeds_obj = Embeds3cm.epic_3cm(client)
 banco = CRUD.crud()
@@ -99,13 +99,13 @@ def add_XP(ctx, dict_player, amount_xp): #Altera a Referencia
 @commands.has_permissions(administrator = True)
 async def ativar_modulo(ctx, extension):
     await ctx.send("modulo "+extension+" ativado")
-    client.load_extension(f'Scripts.{extension}')
+    await client.load_extension(f'Scripts.{extension}')
 
 @client.command()
 @commands.has_permissions(administrator = True)
 async def desativar_modulo(ctx, extension):
     await ctx.send("modulo "+extension+" desativado")
-    client.unload_extension(f'Scripts.{extension}')
+    await client.unload_extension(f'Scripts.{extension}')
 
 @client.command()
 @commands.has_permissions(administrator = True)
@@ -156,7 +156,7 @@ async def helpadm(ctx): #Help para administradores
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("Por favor passe todos os argumentos necessários", delete_after = 20)
         elif isinstance(error, commands.CommandNotFound):
-            await ctx.send("Comando não encontrado, digite help help para ver os comandos ativos", delete_after = 20)
+            await ctx.send("Comando não encontrado, digite 3cm help para ver os comandos ativos", delete_after = 20)
             await ctx.message.delete()
         elif isinstance(error, commands.NotOwner):
             await ctx.send("Apenas o dono do server pode executar esse comando", delete_after = 20)

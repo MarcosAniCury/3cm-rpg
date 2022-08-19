@@ -42,8 +42,8 @@ class epic_3cm:
             inline = False
         )
 
-        embed_help_commands.set_footer(text="Develop by:Miko#9331", icon_url=f'{self.client.get_user(239498713347653633).avatar_url}')
-        embed_help_commands.set_author(name="3cm Rpg", icon_url=f'{self.client.get_user(869952210979663883).avatar_url}')
+        embed_help_commands.set_footer(text="Develop by:Miko#9331", icon_url=f'{self.client.get_user(239498713347653633).avatar.url}')
+        embed_help_commands.set_author(name="3cm Rpg", icon_url=f'{self.client.get_user(869952210979663883).avatar.url}')
 
         return embed_help_commands
 
@@ -70,8 +70,8 @@ class epic_3cm:
             inline = False
         )
 
-        help_adm_command.set_footer(text="Develop by:Miko#9331", icon_url=f'{self.client.get_user(239498713347653633).avatar_url}')
-        help_adm_command.set_author(name="3cm Rpg", icon_url=f'{self.client.get_user(869952210979663883).avatar_url}')
+        help_adm_command.set_footer(text="Develop by:Miko#9331", icon_url=f'{self.client.get_user(239498713347653633).avatar.url}')
+        help_adm_command.set_author(name="3cm Rpg", icon_url=f'{self.client.user.avatar.url}')
 
         return help_adm_command
 
