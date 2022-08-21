@@ -8,18 +8,19 @@ class crud:
 
     #Construtor
     def __init__(self):
-        DB = pyodbc.connect('DRIVER= '+ TOKENs.get_driver_azure() + '; SERVER=tcp:'+TOKENs.get_server_azure()+';PORT=1433;DATABASE='+TOKENs.get_database_name_azure()+';UID='+TOKENs.get_user_name_azure()+';PWD='+ TOKENs.get_password_name_azure())        
+        DB = pyodbc.connect('Driver='+TOKENs.get_azure_driver()+';Server=tcp:'+TOKENs.get_azure_server()+',1433;Database='+TOKENs.get_azure_database()+';Uid='+TOKENs.get_azure_user()+';Pwd='+TOKENs.get_azure_password()+';Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
         self.banco = DB.cursor()
         print("Conexão com a Azure realizada")
         print("------------------------------")
-        self.banco.execute("INSERT INTO modify (type_target, target, type_modify, value) VALUES ('teste','target_teste','cansei','testei dnv')")
+        self.banco.execute("INSERT INTO modify (type_target, target, type_modify, value) VALUES ('cader','sas','cafdsi','tesdv')")
+        self.banco.commit()
 
     #--------Colection Servidores Inicio--------
 
     #--------------crud Inicio--------------
 
-    def create(self,Colecao,item): #Criar um documento
-        self.banco[Colecao].insert_one(item)
+    def create(self,colecao,item): #Criar um documento
+        self.banco[colecao].insert_one(item)
         return True
 
     def read(self,Colecao,item): #Ler um documento
