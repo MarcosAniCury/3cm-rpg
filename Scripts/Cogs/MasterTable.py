@@ -1,14 +1,12 @@
 #Meus arquivos .py
-from discord import channel
 from Armazenamento import CRUD
 from Armazenamento import Embeds3cm
-from Main import find_player_by_id
-from Main import update_status
-from Main import add_XP
 
 #Bibliotecas python
 from discord.ext import commands
 import discord
+from Scripts.Utils.UtilsFunctions import find_player_by_id, update_status, add_XP
+
 
 class master_table(commands.Cog):
 
@@ -24,7 +22,7 @@ class master_table(commands.Cog):
         print("----------------------")
 
     @commands.Cog.listener()
-    async def on_disconnect():
+    async def on_disconnect(self):
         print("Modulo master_table desconectado")
         print("---------------------")
 
@@ -81,8 +79,8 @@ class master_table(commands.Cog):
                     
 #------------Rpg Class Fim-----------------
 
-def setup(client): #Ativa o Cog
-    client.add_cog(master_table(client))
+async def setup(client): #Ativa o Cog
+    await client.add_cog(master_table(client))
 
 #-----------Funcoes do Cog Inicio-----------
 
