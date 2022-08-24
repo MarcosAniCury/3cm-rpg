@@ -75,6 +75,7 @@ async def reiniciar_modulo(ctx, ext):
 async def load_all_cogs():
     for filename in os.listdir('Scripts/Cogs'):
         if filename.endswith('.py'):
+            print('Loading Cog '+filename[:-3])
             await client.load_extension(f'Scripts.Cogs.{filename[:-3]}')  # Load cortando o .py do arquivo
 
 
