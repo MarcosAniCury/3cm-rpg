@@ -1,13 +1,11 @@
 # -----------Funcoes do Server Inicio-----------
 
-from Armazenamento import CRUD
-
-banco = CRUD.crud()
+from Armazenamento.CRUD import CRUD
 
 
 async def check_not_exist_player(ctx):
   id = ctx.author.id
-  retorno = not banco.check_player(id)
+  retorno = not CRUD.check_player(id)
   if not retorno:
     await ctx.send("Você já possui uma ficha de personagem")
   return retorno
@@ -15,15 +13,14 @@ async def check_not_exist_player(ctx):
 
 async def check_exist_player(ctx):
   id = ctx.author.id
-  retorno = banco.check_player(id)
+  retorno = CRUD.check_player(id)
   if not retorno:
     await ctx.send("Você não possui uma ficha de personagem")
   return retorno
 
 
-def find_player_by_id(memberId, banco):
-  player = banco.read("players", {'id_player': str(memberId)})
-  print(player)
+def find_player_by_id(memberId):
+  player = CRUD.read("players", {'id_player': str(memberId)})
   return player
 
 

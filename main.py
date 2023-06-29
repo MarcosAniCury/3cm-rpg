@@ -1,7 +1,7 @@
 # Meus arquivos .py
 from Armazenamento import TOKENs
 from Armazenamento import Embeds3cm
-from Armazenamento import CRUD
+from Armazenamento.CRUD import CRUD
 
 # Bibliotecas python
 import discord
@@ -13,18 +13,16 @@ client = commands.Bot(command_prefix=TOKENs.get_prefix(),
                       intents=discord.Intents.all())
 
 embeds_obj = Embeds3cm.epic_3cm(client)
-banco = CRUD.crud()
+
 
 # ----------Bot Status Inicio------------
-
-
 @client.event
 async def on_ready():
   print("BOT ONLINE")
   print(client.user.name)
   print(client.user.id)
   print("----------------------")
-
+  CRUD.connect()
   await client.change_presence(
     activity=discord.Game("\"3cm h\" alias \"cm h\""))  # Alterar status do bot
   await load_all_cogs()
@@ -33,6 +31,7 @@ async def on_ready():
 @client.event
 async def on_disconnect(erro):
   print("Bot desconectado verifique sua conexão")
+  CRUD.disconnect()
 
 
 @client.event
@@ -42,9 +41,8 @@ async def on_resumed():
   print(client.user.id)
   print("----------------------")
   global embeds_obj
-  global banco
   embeds_obj = Embeds3cm.epic_3cm(client)
-  banco = CRUD.crud()
+  CRUD.connect()
 
   await client.change_presence(
     activity=discord.Game("\"3cm h\" alias \"cm h\""))  # Alterar status do bot

@@ -1,5 +1,5 @@
 # Meus arquivos .py
-from Armazenamento import CRUD
+from Armazenamento.CRUD import CRUD
 from Armazenamento import Embeds3cm
 
 # Bibliotecas python
@@ -13,7 +13,6 @@ class player(commands.Cog):
 
   def __init__(self, client):
     self.client = client
-    self.banco = CRUD.crud()
     self.embeds_obj = Embeds3cm.epic_3cm(client)
 
   # Evento
@@ -31,7 +30,7 @@ class player(commands.Cog):
   @commands.check(check_not_exist_player)
   async def criar_ficha(self, ctx):  # Criar player
     # Sortear uma classe
-    classe_sorteada = gerar_random(self.banco, "classes")
+    classe_sorteada = gerar_random("classes")
 
     # Sortear estrelas
     numero_estrelas = random.uniform(1, 100)
@@ -67,10 +66,7 @@ class player(commands.Cog):
     for x in range(1, estrelas + 1):
       habilidades[str(x)] = "None"
 
-    habilidades["1"] = {
-      "habilidade": gerar_random(self.banco, "skills"),
-      "nivel": '1'
-    }
+    habilidades["1"] = {"habilidade": gerar_random("skills"), "nivel": '1'}
 
     player = {
       "id_player": str(ctx.author.id),
@@ -119,7 +115,7 @@ class player(commands.Cog):
     }
 
     # Armazenar no data base
-    self.banco.create("players", player)
+    CRUD.create("players", player)
 
     # "Animacoes" presentes na tela
     cooldown_comandos = 4
@@ -169,7 +165,7 @@ class player(commands.Cog):
   @commands.check(check_exist_player)
   async def perfil(self, ctx):  # Criar player
     id = ctx.author.id
-    player = find_player_by_id(id, self.banco)
+    player = find_player_by_id(id)
     embed_player = self.embeds_obj.player_profile(player)
     await ctx.send(
       "__Aparece em sua frente uma tela, acessando perfil do player__",
@@ -199,7 +195,7 @@ class player(commands.Cog):
 
       input_colecao = "classes"
 
-      dict_objeto = self.banco.read_colection(input_colecao)
+      dict_objeto = CRUD.read_colection(input_colecao)
       await ctx.send("**" + input_objeto + "** : " +
                      dict_objeto[input_objeto]["descricao"])
 
@@ -215,7 +211,7 @@ class player(commands.Cog):
 
       input_colecao = "skills"
 
-      dict_objeto = self.banco.read_colection(input_colecao)
+      dict_objeto = CRUD.read_colection(input_colecao)
       await ctx.send("**" + input_objeto + "** : " +
                      dict_objeto[input_objeto]["descricao"])
 
@@ -231,7 +227,7 @@ class player(commands.Cog):
   @commands.check(check_exist_player)
   async def distribuir_pontos(self, ctx):
     id = ctx.author.id
-    player = find_player_by_id(id, self.banco)
+    player = find_player_by_id(id)
     pontos_distribuir = int(player['atributos_variaveis']['pontos_atributos'])
     if pontos_distribuir <= 0:
       await ctx.send("Você não possui pontos para distribuir", delete_after=20)
@@ -266,7 +262,7 @@ class player(commands.Cog):
           'message', check=lambda msg: msg.author == ctx.author, timeout=60)
         input_confirmacao = input_confirmacao.content.lower()
         if input_confirmacao == 's' or input_confirmacao == 'sim':
-          self.banco.update_item("players", player)
+          CRUD.update_item("players", player)
           await ctx.send(
             "distribuição de pontos bem sucedida, digite `3cm perfil` para verificar",
             delete_after=30)
@@ -289,8 +285,8 @@ async def setup(client):  # Ativa o Cog
 # -----------Funcoes do Cog Inicio-----------
 
 
-def gerar_random(banco, Colecao):
-  item_gerado = banco.read_chose_random_one(Colecao)
+def gerar_random(Colecao):
+  item_gerado = CRUD.read_chose_random_one(Colecao)
   # Copy do item para atualizar
   item_atualizado = item_gerado.copy()
 
@@ -302,7 +298,7 @@ def gerar_random(banco, Colecao):
   # Atualizado
   item_atualizado[item_aleatorio]["utilizado"] = "True"
 
-  banco.update_item(Colecao, item_atualizado)
+  CRUD.update_item(Colecao, item_atualizado)
   return item_aleatorio
 
 

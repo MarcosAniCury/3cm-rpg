@@ -1,6 +1,3 @@
-# Meus arquivos .py
-from Armazenamento import CRUD
-
 # Bibliotecas python
 import random
 from discord.ext import commands
@@ -10,7 +7,6 @@ class dice(commands.Cog):
 
   def __init__(self, client):
     self.client = client
-    self.banco = CRUD.crud()
 
   # Evento
   @commands.Cog.listener()
