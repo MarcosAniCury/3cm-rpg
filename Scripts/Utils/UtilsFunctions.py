@@ -26,7 +26,6 @@ def find_player_by_id(memberId):
 
 async def update_status(dict_player, status,
                         valor):  # Cria uma nova Referencia
-
   retorno = None
   valorMaximo = dict_player['atributos_variaveis'][status]['maxima']
   valorAnterior = dict_player['atributos_variaveis'][status]['atual']
@@ -34,8 +33,9 @@ async def update_status(dict_player, status,
     int(valor) + int(valorAnterior))
   valorAtual = dict_player['atributos_variaveis'][status]['atual']
   # Caso ultrapasse de zero
-  if int(valorAnterior) + int(valor) < 0 and status == "vida":
+  if int(valorAnterior) + int(valor) <= 0 and status == "vida":
     valorAtual = "0"
+    dict_player["morto"] = "True"
   if int(valorAtual) <= int(
       valorMaximo) and int(valorAnterior) + int(valor) >= 0:
     retorno = [dict_player, valorAtual, valorMaximo]

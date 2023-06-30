@@ -1,6 +1,6 @@
 # Meus arquivos .py
 from Scripts import TOKENs
-from Scripts.Embeds import Embeds3cm
+from Scripts.Embeds import HelpEmbeds
 from Scripts.Database.CRUD import CRUD
 
 # Bibliotecas python
@@ -11,9 +11,6 @@ from discord.ext import commands
 
 client = commands.Bot(command_prefix=TOKENs.get_prefix(),
                       intents=discord.Intents.all())
-
-embeds_obj = Embeds3cm.epic_3cm(client)
-
 
 # ----------Bot Status Inicio------------
 @client.event
@@ -40,8 +37,6 @@ async def on_resumed():
   print(client.user.name)
   print(client.user.id)
   print("----------------------")
-  global embeds_obj
-  embeds_obj = Embeds3cm.epic_3cm(client)
   CRUD.connect()
 
   await client.change_presence(
@@ -94,8 +89,10 @@ class MyHelp(commands.HelpCommand):  # Overwrite help
     })
 
   async def send_bot_help(self, mapping):
+    global client
+
     channel = self.get_destination()
-    HelpEmbed = embeds_obj.get_embed_help_commands()
+    HelpEmbed = HelpEmbeds.get_embed_help_commands(client)
     await channel.send(embed=HelpEmbed)
 
 
@@ -115,7 +112,8 @@ async def ping(ctx):  # Comando para testar a latencia
 @client.command(aliases=["hadm"])
 @commands.has_permissions(administrator=True)
 async def helpadm(ctx):  # Help para administradores
-  HelpAdmEmbed = embeds_obj.get_help_adm_command()
+  global client
+  HelpAdmEmbed = HelpEmbeds.get_help_adm_command(client)
   await ctx.send(embed=HelpAdmEmbed)
 
   # ------------Comandos Importantes Fim-----------

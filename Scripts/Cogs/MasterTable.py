@@ -1,6 +1,5 @@
 #Meus arquivos .py
 from Scripts.Database.CRUD import CRUD
-from Scripts.Embeds import Embeds3cm
 
 #Bibliotecas python
 from discord.ext import commands
@@ -12,7 +11,6 @@ class master_table(commands.Cog):
 
   def __init__(self, client):
     self.client = client
-    self.embeds_obj = Embeds3cm.epic_3cm(client)
 
   #Evento
   @commands.Cog.listener()

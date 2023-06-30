@@ -40,7 +40,7 @@ class CRUD:
     return CRUD.data_base.find_one()
 
   def read_chose_random_one(Colecao):  #Ler a coleção inteira
-    return CRUD.data_base[Colecao].find_one()
+    return CRUD.data_base[Colecao].aggregate([{ "$sample": { "size": 1 } }]).next()
 
   def update_item(Colecao, itemNew):
     Obj = CRUD.read(Colecao, itemNew['_id'])

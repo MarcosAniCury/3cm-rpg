@@ -1,6 +1,6 @@
 # Meus arquivos .py
 from Scripts.Database.CRUD import CRUD
-from Scripts.Embeds import Embeds3cm
+from Scripts.Embeds import PlayerEmbeds
 
 # Bibliotecas python
 import asyncio
@@ -13,7 +13,6 @@ class player(commands.Cog):
 
   def __init__(self, client):
     self.client = client
-    self.embeds_obj = Embeds3cm.epic_3cm(client)
 
   # Evento
   @commands.Cog.listener()
@@ -27,13 +26,7 @@ class player(commands.Cog):
     print("---------------------")
 
   @commands.command()
-  @commands.check(check_not_exist_player)
   async def criar_ficha(self, ctx):  # Criar player
-    CRUD.data_base.classes.update_many({}, { "$set": { "utilizado": "False" } })
-
-    await ctx.send("Comando temporariamente desativado", delete_after=60)
-    return True
-
     # Sortear uma classe
     classe_sorteada = gerar_random("classes")
 
@@ -130,7 +123,7 @@ class player(commands.Cog):
     await asyncio.sleep(cooldown_comandos)
     await ctx.send("Gerando classe...", delete_after=cooldown_comandos)
     await asyncio.sleep(cooldown_comandos)
-    await ctx.send("Classe gerada:__**" + classe_sorteada + "**__",
+    await ctx.send("Classe gerada:__**" + classe_sorteada["nome"] + "**__",
                    delete_after=cooldown_comandos)
     await asyncio.sleep(cooldown_comandos)
     await ctx.send("Gerando número de estrelas...",
@@ -145,7 +138,7 @@ class player(commands.Cog):
     await ctx.send("**FALHA ENCONTRADA**, Gerando habilidade padrão...",
                    delete_after=cooldown_comandos)
     await asyncio.sleep(cooldown_comandos)
-    await ctx.send("Habilidade gerada:__**" + habilidades['1']["habilidade"] +
+    await ctx.send("Habilidade gerada:__**" + habilidades['1']["habilidade"]["nome"] +
                    "**__",
                    delete_after=cooldown_comandos)
     await asyncio.sleep(cooldown_comandos)
@@ -157,7 +150,7 @@ class player(commands.Cog):
       delete_after=cooldown_comandos)
     await asyncio.sleep(cooldown_comandos)
 
-    player_profile = self.embeds_obj.player_profile(player)
+    player_profile = PlayerEmbeds.player_profile(self.client, player)
 
     # Enviar para o privado
     await ctx.author.send(embed=player_profile, delete_after=60)
@@ -171,7 +164,7 @@ class player(commands.Cog):
   async def perfil(self, ctx):  # Criar player
     id = ctx.author.id
     player = find_player_by_id(id)
-    embed_player = self.embeds_obj.player_profile(player)
+    embed_player = PlayerEmbeds.player_profile(self.client, player)
     await ctx.send(
       "__Aparece em sua frente uma tela, acessando perfil do player__",
       delete_after=10)
@@ -292,19 +285,15 @@ async def setup(client):  # Ativa o Cog
 
 def gerar_random(Colecao):
   item_gerado = CRUD.read_chose_random_one(Colecao)
-  # Copy do item para atualizar
-  item_atualizado = item_gerado.copy()
 
-  item_gerado.pop('_id')
-  item_aleatorio = random.choice(list(item_gerado))
-  while item_gerado[item_aleatorio]['utilizado'] == "True":
-    item_aleatorio = random.choice(list(item_gerado))
+  while item_gerado['utilizado'] == "True":
+    item_gerado = CRUD.read_chose_random_one(Colecao)
 
   # Atualizado
-  item_atualizado[item_aleatorio]["utilizado"] = "True"
+  item_gerado["utilizado"] = "True"
 
-  CRUD.update_item(Colecao, item_atualizado)
-  return item_aleatorio
+  CRUD.update_item(Colecao, item_gerado)
+  return item_gerado
 
 
 # -----------Funcoes do Cog Fim-----------
