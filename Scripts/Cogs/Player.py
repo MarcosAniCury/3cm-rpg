@@ -1,6 +1,6 @@
 # Meus arquivos .py
-from Armazenamento.CRUD import CRUD
-from Armazenamento import Embeds3cm
+from Scripts.Database.CRUD import CRUD
+from Scripts.Embeds import Embeds3cm
 
 # Bibliotecas python
 import asyncio
@@ -29,6 +29,11 @@ class player(commands.Cog):
   @commands.command()
   @commands.check(check_not_exist_player)
   async def criar_ficha(self, ctx):  # Criar player
+    CRUD.data_base.classes.update_many({}, { "$set": { "utilizado": "False" } })
+
+    await ctx.send("Comando temporariamente desativado", delete_after=60)
+    return True
+
     # Sortear uma classe
     classe_sorteada = gerar_random("classes")
 

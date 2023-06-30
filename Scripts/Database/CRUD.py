@@ -1,5 +1,5 @@
 #Meus arquivos .py
-from Armazenamento import TOKENs
+from Scripts import TOKENs
 
 #Bibliotecas python
 from pymongo import MongoClient

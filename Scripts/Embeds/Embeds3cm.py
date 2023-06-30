@@ -1,6 +1,6 @@
 #Meus arquivos .py
 from discord.colour import Color
-from Armazenamento import TOKENs
+from Scripts import TOKENs
 
 #Bibliotecas python
 import discord

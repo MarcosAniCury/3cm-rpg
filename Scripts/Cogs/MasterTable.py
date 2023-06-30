@@ -1,6 +1,6 @@
 #Meus arquivos .py
-from Armazenamento.CRUD import CRUD
-from Armazenamento import Embeds3cm
+from Scripts.Database.CRUD import CRUD
+from Scripts.Embeds import Embeds3cm
 
 #Bibliotecas python
 from discord.ext import commands
