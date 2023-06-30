@@ -26,8 +26,17 @@ class player(commands.Cog):
     print("---------------------")
 
   @commands.command()
-  @commands.check(check_not_exist_player)
+  # @commands.check(check_not_exist_player)
   async def criar_ficha(self, ctx):  # Criar player
+    for item in CRUD.data_base.skills.find():
+      print(item)
+      print('\n\n\n')
+      item['consumo'] = {}
+      CRUD.update_item('skills', item)
+
+    await ctx.send("Função desativada temporariamente")
+    return None
+
     # Sortear uma classe
     classe_sorteada = gerar_random("classes")
 
@@ -40,8 +49,8 @@ class player(commands.Cog):
     # 0-40 - 40%
     # 41-70 - 30%
     # 71-90 - 20%
-    # 91-99 - 9%
-    # 100 - 1%
+    # 91-99 - 8%
+    # 100 - 2%
 
     if numero_estrelas <= 40:
       estrelas = 1
@@ -49,7 +58,7 @@ class player(commands.Cog):
       estrelas = 2
     elif numero_estrelas <= 90:
       estrelas = 3
-    elif numero_estrelas <= 99:
+    elif numero_estrelas <= 98:
       estrelas = 4
     else:
       estrelas = 5
@@ -286,7 +295,7 @@ def gerar_random(Colecao):
     item_gerado = CRUD.read_chose_random_one(Colecao)
 
   # Atualizado
-  # item_gerado["utilizado"] = "True"
+  item_gerado["utilizado"] = "True"
 
   CRUD.update_item(Colecao, item_gerado)
   return item_gerado
