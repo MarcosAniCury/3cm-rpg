@@ -1,6 +1,6 @@
 # -----------Funcoes do Server Inicio-----------
 
-from Armazenamento.CRUD import CRUD
+from Scripts.Database.CRUD import CRUD
 
 
 async def check_not_exist_player(ctx):
