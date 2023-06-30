@@ -26,6 +26,7 @@ class player(commands.Cog):
     print("---------------------")
 
   @commands.command()
+  @commands.check(check_not_exist_player)
   async def criar_ficha(self, ctx):  # Criar player
     # Sortear uma classe
     classe_sorteada = gerar_random("classes")
@@ -103,12 +104,7 @@ class player(commands.Cog):
         "sorte": '0',
         "pontos_atributos": '0'
       },
-      "pontos": {
-        "morte": '0',
-        "sobreviver": '0',
-        "especial_evento": '0',
-        "total": '0'
-      },
+      "pontos_de_conquista": 0,
       "morto": str(False)
     }
 
@@ -138,8 +134,8 @@ class player(commands.Cog):
     await ctx.send("**FALHA ENCONTRADA**, Gerando habilidade padrão...",
                    delete_after=cooldown_comandos)
     await asyncio.sleep(cooldown_comandos)
-    await ctx.send("Habilidade gerada:__**" + habilidades['1']["habilidade"]["nome"] +
-                   "**__",
+    await ctx.send("Habilidade gerada:__**" +
+                   habilidades['1']["habilidade"]["nome"] + "**__",
                    delete_after=cooldown_comandos)
     await asyncio.sleep(cooldown_comandos)
     await ctx.send("Inicializando todos os atributos com valor **0**",
@@ -290,7 +286,7 @@ def gerar_random(Colecao):
     item_gerado = CRUD.read_chose_random_one(Colecao)
 
   # Atualizado
-  item_gerado["utilizado"] = "True"
+  # item_gerado["utilizado"] = "True"
 
   CRUD.update_item(Colecao, item_gerado)
   return item_gerado

@@ -5,6 +5,7 @@ from Scripts import TOKENs
 import discord
 from discord.ext.commands.help import HelpCommand
 
+
 def get_embed_help_commands(client):  #Embed Command help
 
   prefix = TOKENs.get_prefix()[0]
@@ -44,6 +45,7 @@ def get_embed_help_commands(client):  #Embed Command help
 
   return embed_help_commands
 
+
 def get_help_adm_command(client):  #Emd Commnad helpadm
 
   prefix = TOKENs.get_prefix()[0]
@@ -56,10 +58,8 @@ def get_help_adm_command(client):  #Emd Commnad helpadm
 
   help_adm_command.add_field(
     name="📄Server Comandos📄",
-    value="`" + prefix +
-    "ativar_modulo <modulo>` - ativar um modulo do bot\n"
-    "`" + prefix +
-    "desativar_modulo <modulo>` - desativar um modulo do bot\n"
+    value="`" + prefix + "ativar_modulo <modulo>` - ativar um modulo do bot\n"
+    "`" + prefix + "desativar_modulo <modulo>` - desativar um modulo do bot\n"
     "`" + prefix +
     "reiniciar_modulo <modulo>` - reiniciar um modulo do bot\n\u200b",
   )
@@ -70,6 +70,8 @@ def get_help_adm_command(client):  #Emd Commnad helpadm
     "atualizar_status <mention player> <status> <value>` - alterar o status de um jogador Ex:Vida\n"
     "`" + prefix +
     "add_xp <mention player> <value>` - adiciona ou remove xp de um player\n"
+    "`" + prefix +
+    "atualizar_pontos <mention player> <value>` - alterar os pontos de um player\n"
     "\nBot em construção, mais comandos serão adicionados no futuro",
     inline=False)
 
@@ -80,5 +82,3 @@ def get_help_adm_command(client):  #Emd Commnad helpadm
                               icon_url=f'{client.user.avatar.url}')
 
   return help_adm_command
-
-

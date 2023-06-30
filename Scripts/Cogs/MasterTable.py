@@ -4,7 +4,7 @@ from Scripts.Database.CRUD import CRUD
 #Bibliotecas python
 from discord.ext import commands
 import discord
-from Scripts.Utils.UtilsFunctions import find_player_by_id, update_status, add_XP
+from Scripts.Utils.UtilsFunctions import find_player_by_id, update_status, add_XP, update_pontos
 
 
 class master_table(commands.Cog):
@@ -28,7 +28,7 @@ class master_table(commands.Cog):
   async def atualizar_status(self, ctx, player: discord.Member, status, valor):
     status = status.lower()
     dict_player = find_player_by_id(player.id)
-    dict_player_update = await update_status(dict_player.copy(), status, valor)
+    dict_player_update = update_status(dict_player.copy(), status, valor)
 
     #Canal de log
     canal_log = self.client.get_channel(873616219700334622)
@@ -43,6 +43,30 @@ class master_table(commands.Cog):
       CRUD.update_item("players", dict_player_update[0])
       status_string = status + " do jogador **" + player.name + "** atualizado:__**" + dict_player_update[
         1] + "/" + dict_player_update[2] + "**__"
+      await ctx.send(status_string)
+      await canal_log.send(status_string)
+
+  @commands.command(aliases=["ap"])
+  @commands.is_owner()
+  async def atualizar_pontos(self, ctx, player: discord.Member, valor):
+    dict_player = find_player_by_id(player.id)
+    dict_player_update = update_pontos(dict_player.copy(), int(valor))
+
+    #Canal de log
+    canal_log = self.client.get_channel(873616219700334622)
+    if dict_player_update == None:
+      await ctx.send(
+        "Operação inválida, o player não pode ter menos que 0 de pontos",
+        delete_after=60)
+      await canal_log.send(
+        "Ouve uma tentativa invalida de alteração nos status do jogador **" +
+        player.name + "**")
+    else:
+      print(str(dict_player_update))
+      CRUD.update_item("players", dict_player_update)
+      status_string = "Pontos do jogador **" + player.name + "** atualizado de __**" + str(
+        dict_player['pontos_de_conquista']) + "**__ para __**" + str(
+          dict_player_update['pontos_de_conquista']) + "**__"
       await ctx.send(status_string)
       await canal_log.send(status_string)
 

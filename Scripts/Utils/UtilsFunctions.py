@@ -24,8 +24,7 @@ def find_player_by_id(memberId):
   return player
 
 
-async def update_status(dict_player, status,
-                        valor):  # Cria uma nova Referencia
+def update_status(dict_player, status, valor):  # Cria uma nova Referencia
   retorno = None
   valorMaximo = dict_player['atributos_variaveis'][status]['maxima']
   valorAnterior = dict_player['atributos_variaveis'][status]['atual']
@@ -40,6 +39,14 @@ async def update_status(dict_player, status,
       valorMaximo) and int(valorAnterior) + int(valor) >= 0:
     retorno = [dict_player, valorAtual, valorMaximo]
   return retorno
+
+
+def update_pontos(dict_player, valor):
+  if valor + dict_player['pontos_de_conquista'] >= 0:
+    dict_player['pontos_de_conquista'] += valor
+    return dict_player
+  # Caso os pontos fiquem menor que 0
+  return None
 
 
 def add_XP(ctx, dict_player, amount_xp):  # Altera a Referencia
