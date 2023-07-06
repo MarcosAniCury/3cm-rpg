@@ -49,7 +49,7 @@ def update_pontos(dict_player, valor):
   return None
 
 
-def add_XP(ctx, dict_player, amount_xp):  # Altera a Referencia
+def add_XP(dict_player, amount_xp):  # Altera a Referencia
 
   xp_atual = int(dict_player['atributos_variaveis']['xp']['atual'])
   dict_player['atributos_variaveis']['xp']['atual'] = str(amount_xp + xp_atual)
@@ -61,3 +61,4 @@ def add_XP(ctx, dict_player, amount_xp):  # Altera a Referencia
     dict_player['atributos_variaveis']['xp']['maximo'] = str(xp_maximo + 100)
     level_atual = int(dict_player['atributos_variaveis']['xp']['level']) + 1
     dict_player['atributos_variaveis']['xp']['level'] = str(level_atual)
+    dict_player['atributos_variaveis']['pontos_atributos'] = int(dict_player['atributos_variaveis']['pontos_atributos']) + 2
