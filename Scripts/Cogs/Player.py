@@ -1,12 +1,15 @@
 # Meus arquivos .py
-from Scripts.Database.CRUD import CRUD
-from Scripts.Embeds import PlayerEmbeds
-
 # Bibliotecas python
 import asyncio
 import random
+
 from discord.ext import commands
-from Scripts.Utils.UtilsFunctions import check_not_exist_player, check_exist_player, find_player_by_id
+
+from Scripts.Database.CRUD import CRUD
+from Scripts.Embeds import PlayerEmbeds
+from Scripts.Utils.UtilsFunctions import (check_exist_player,
+                                          check_not_exist_player,
+                                          find_player_by_id)
 
 
 class player(commands.Cog):
@@ -28,12 +31,6 @@ class player(commands.Cog):
   @commands.command()
   # @commands.check(check_not_exist_player)
   async def criar_ficha(self, ctx):  # Criar player
-    for item in CRUD.data_base.skills.find():
-      print(item)
-      print('\n\n\n')
-      item['consumo'] = {}
-      CRUD.update_item('skills', item)
-
     await ctx.send("Função desativada temporariamente")
     return None
 
@@ -246,18 +243,11 @@ class player(commands.Cog):
       input_pontos = await self.client.wait_for(
         'message', check=lambda msg: msg.author == ctx.author, timeout=60)
       input = input_pontos.content.lower().split()
-      if input_pontos.content.lower() == 'não' or input_pontos.content.lower(
-      ) == 'n':
+
+      if input_pontos.content.lower() == 'não' or input_pontos.content.lower() == 'n':
         await ctx.send("Cancelando operação", delete_after=10)
         pontos_distribuir = 0
       elif int(input[1]) <= pontos_distribuir:
-        player['atributos_fixos'][input[0]] = str(
-          int(player['atributos_fixos'][input[0]]) + int(input[1]))
-        player['atributos_variaveis']['pontos_atributos'] = str(
-          int(player['atributos_variaveis']['pontos_atributos']) -
-          int(input[1]))
-        pontos_distribuir = int(
-          player['atributos_variaveis']['pontos_atributos'])
         await ctx.send("__Tem certeza que você vai adicionar **" + input[1] +
                        "** pontos em **" + input[0] + "** (S/N):__",
                        delete_after=60)
@@ -265,6 +255,12 @@ class player(commands.Cog):
           'message', check=lambda msg: msg.author == ctx.author, timeout=60)
         input_confirmacao = input_confirmacao.content.lower()
         if input_confirmacao == 's' or input_confirmacao == 'sim':
+          player['atributos_fixos'][input[0]] = str(
+            int(player['atributos_fixos'][input[0]]) + int(input[1]))
+          player['atributos_variaveis']['pontos_atributos'] = str(
+            int(player['atributos_variaveis']['pontos_atributos']) -
+            int(input[1]))
+          
           CRUD.update_item("players", player)
           await ctx.send(
             "distribuição de pontos bem sucedida, digite `3cm perfil` para verificar",
@@ -272,6 +268,9 @@ class player(commands.Cog):
           await canal_log.send("O jogador " + ctx.author.mention +
                                " adicionou **" + input[1] +
                                "** pontos no atributo " + input[0])
+          
+          pontos_distribuir = int(
+            player['atributos_variaveis']['pontos_atributos'])
       else:
         await ctx.send("Operação inválida, cancelando operação",
                        delete_after=10)

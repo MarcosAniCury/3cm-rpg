@@ -1,8 +1,8 @@
 #Meus arquivos .py
-from Scripts import TOKENs
-
 #Bibliotecas python
 from pymongo import MongoClient
+
+from Scripts import TOKENs
 
 
 class CRUD:

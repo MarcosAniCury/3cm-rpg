@@ -23,8 +23,8 @@ def player_profile(client, playerdict):  #Embed for players profile
     "con"] + "\n"
 
   if int(playerdict['atributos_variaveis']['pontos_atributos']) > 0:
-    atributos_fixos_first_div += "\n**Pontos há distribuir**:" + playerdict[
-      'atributos_variaveis']['pontos_atributos'] + "\n"
+    atributos_fixos_first_div += "\n**Pontos há distribuir**:" + str(playerdict[
+      'atributos_variaveis']['pontos_atributos']) + "\n"
 
   atributos_fixos_second_div = "🧠**Int**:" + playerdict["atributos_fixos"]["int"] + "\n"
   atributos_fixos_second_div += "😜**Car**:" + playerdict["atributos_fixos"]["car"] + "\n"

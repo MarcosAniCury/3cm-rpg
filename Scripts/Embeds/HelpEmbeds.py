@@ -1,9 +1,9 @@
 #Meus arquivos .py
-from Scripts import TOKENs
-
 #Bibliotecas python
 import discord
 from discord.ext.commands.help import HelpCommand
+
+from Scripts import TOKENs
 
 
 def get_embed_help_commands(client):  #Embed Command help
@@ -72,6 +72,7 @@ def get_help_adm_command(client):  #Emd Commnad helpadm
     "add_xp <mention player> <value>` - adiciona ou remove xp de um player\n"
     "`" + prefix +
     "atualizar_pontos <mention player> <value>` - alterar os pontos de um player\n"
+    "`" + prefix + "add_skill` - Criar uma nova skill\n"
     "\nBot em construção, mais comandos serão adicionados no futuro",
     inline=False)
 
