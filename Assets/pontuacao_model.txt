@@ -8,11 +8,12 @@ SOR 5 - +1 Sorte/ 1
 MANA / 20
 ESTAMINA / 20
 VIDA / 20
-EVASÃO / 0 //Um modificador que apenas sera atribuido com itens
 SORTE / 0
 
 PONTOS / 0
 
-XP = 100 / lv XP + 100
+XP = 100 * lv XP+1
+
+LV UP = 2 pontos
 
 
