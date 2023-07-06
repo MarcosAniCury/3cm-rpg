@@ -1,10 +1,11 @@
 # Meus arquivos .py
-from Scripts.Database.CRUD import CRUD
-
+import discord
 # Bibliotecas python
 from discord.ext import commands
-import discord
-from Scripts.Utils.UtilsFunctions import find_player_by_id, update_status, add_XP, update_pontos
+
+from Scripts.Database.CRUD import CRUD
+from Scripts.Utils.UtilsFunctions import (add_XP, find_player_by_id,
+                                          update_pontos, update_status)
 
 
 class master_table(commands.Cog):
@@ -70,28 +71,85 @@ class master_table(commands.Cog):
             await ctx.send(status_string)
             await canal_log.send(status_string)
 
+    @commands.command()
     @commands.is_owner()
     async def add_skill(self, ctx):
-        skill = {}
+        skill = {
+            "utilizado": "False",
+            "descrição_nivel": {},
+            "consumo": {}
+        }
+
         message_name = "Digite o nome da habilidade"
         await ctx.send(message_name, delete_after=10)
-        skill["name"] = await self.client.wait_for(
+        name = await self.client.wait_for(
             'message', check=lambda msg: msg.author == ctx.author, timeout=60)
+        skill["nome"] = name.content.lower().capitalize()
+        
         message_description = "Digite a descrição da habilidade (Para o Player)"
         await ctx.send(message_description, delete_after=10)
-        skill["description"] = await self.client.wait_for(
+        description = await self.client.wait_for(
             'message', check=lambda msg: msg.author == ctx.author, timeout=60)
+        skill["descricao"] = description.content.lower()
+        
         message_level_description = "Digite a descrição para o level 1"
         await ctx.send(message_level_description, delete_after=10)
-        skill["level_description"] = await self.client.wait_for(
+        level_description = await self.client.wait_for(
             'message', check=lambda msg: msg.author == ctx.author, timeout=60)
+        skill["descrição_nivel"]['nv1'] = level_description.content.lower()
+        
         message_duration_turn = "Digite o tempo de duração para a habilidade (Turno)"
         await ctx.send(message_duration_turn, delete_after=10)
-        skill["duration_turn"] = await self.client.wait_for(
+        duration_turn = await self.client.wait_for(
             'message', check=lambda msg: msg.author == ctx.author, timeout=60)
+        skill['consumo']["duração"] = int(duration_turn.content)
+        
         message_recharge_time = "Tempo de recarga da habilidade (Turno)"
         await ctx.send(message_recharge_time, delete_after=10)
-        skill["recharge"]
+        recharge_time = await self.client.wait_for(
+            'message', check=lambda msg: msg.author == ctx.author, timeout=60)
+        skill['consumo']["recarga"] = int(recharge_time.content)
+        
+        status_affect = None
+        options_status_affect = [
+            'mana',
+            'vida',
+            'estamina'
+        ]
+
+        while status_affect not in options_status_affect:
+            message_status_affect = "Qual status a habilidade irá influenciar?"
+            await ctx.send(message_status_affect, delete_after=10)
+            status_affect_response = await self.client.wait_for(
+                'message', check=lambda msg: msg.author == ctx.author, timeout=60)
+            status_affect = status_affect_response.content.lower()
+        
+        message_status = "Quanto irá reduzir da "+status_affect+"?"
+        await ctx.send(message_status, delete_after=10)
+        status = await self.client.wait_for(
+            'message', check=lambda msg: msg.author == ctx.author, timeout=60)
+        skill['consumo'][status_affect] = int(status.content)
+        
+
+        message_confirmation = f"Deseja realmente criar uma habilidade {skill['nome']}\n" \
+            f"*Descrição:* {skill['descricao']}\n" \
+            f"*Descrição Level 1:* {skill['descrição_nivel']['nv1']}\n" \
+            f"Duração de {skill['consumo']['duração']} e custo de {skill['consumo'][status_affect]} {status_affect} (s/n)?"
+
+        
+        await ctx.send(message_confirmation, delete_after=120)
+        confirmation_response = await self.client.wait_for(
+            'message', check=lambda msg: msg.author == ctx.author, timeout=60)
+        confirmation = confirmation_response.content.lower()
+
+        # Canal Log
+        canal_log = self.client.get_channel(873616219700334622)
+        if confirmation == 's':
+            CRUD.create("skills", skill)
+            await ctx.send("Skill criada com sucesso", delete_after=20)
+            await canal_log.send(f"O player {ctx.author.mention} criou a skill {skill['nome']}")
+        else:
+            await ctx.send("Operação cancelada", delete_after=20)
 
     @commands.command(aliases=["ax"])
     @commands.is_owner()
@@ -99,7 +157,7 @@ class master_table(commands.Cog):
         dict_player = find_player_by_id(player.id)
         level_anterior = dict_player['atributos_variaveis']['xp']['level']
 
-        add_XP(ctx, dict_player.copy(), int(valor))
+        add_XP(dict_player.copy(), int(valor))
 
         # Confirmação
         mensagem_confirmacao = "Tem certeza que irá adicionar " + \
