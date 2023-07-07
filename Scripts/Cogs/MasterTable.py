@@ -63,7 +63,6 @@ class master_table(commands.Cog):
                 "Ouve uma tentativa invalida de alteração nos status do jogador **" +
                 player.name + "**")
         else:
-            print(str(dict_player_update))
             CRUD.update_item("players", dict_player_update)
             status_string = "Pontos do jogador **" + player.name + "** atualizado de __**" + str(
                 dict_player['pontos_de_conquista']) + "**__ para __**" + str(
@@ -85,31 +84,31 @@ class master_table(commands.Cog):
         name = await self.client.wait_for(
             'message', check=lambda msg: msg.author == ctx.author, timeout=60)
         skill["nome"] = name.content.lower().capitalize()
-        
+
         message_description = "Digite a descrição da habilidade (Para o Player)"
         await ctx.send(message_description, delete_after=10)
         description = await self.client.wait_for(
             'message', check=lambda msg: msg.author == ctx.author, timeout=60)
         skill["descricao"] = description.content.lower()
-        
+
         message_level_description = "Digite a descrição para o level 1"
         await ctx.send(message_level_description, delete_after=10)
         level_description = await self.client.wait_for(
             'message', check=lambda msg: msg.author == ctx.author, timeout=60)
         skill["descrição_nivel"]['nv1'] = level_description.content.lower()
-        
+
         message_duration_turn = "Digite o tempo de duração para a habilidade (Turno)"
         await ctx.send(message_duration_turn, delete_after=10)
         duration_turn = await self.client.wait_for(
             'message', check=lambda msg: msg.author == ctx.author, timeout=60)
         skill['consumo']["duração"] = int(duration_turn.content)
-        
+
         message_recharge_time = "Tempo de recarga da habilidade (Turno)"
         await ctx.send(message_recharge_time, delete_after=10)
         recharge_time = await self.client.wait_for(
             'message', check=lambda msg: msg.author == ctx.author, timeout=60)
         skill['consumo']["recarga"] = int(recharge_time.content)
-        
+
         status_affect = None
         options_status_affect = [
             'mana',
@@ -123,20 +122,18 @@ class master_table(commands.Cog):
             status_affect_response = await self.client.wait_for(
                 'message', check=lambda msg: msg.author == ctx.author, timeout=60)
             status_affect = status_affect_response.content.lower()
-        
+
         message_status = "Quanto irá reduzir da "+status_affect+"?"
         await ctx.send(message_status, delete_after=10)
         status = await self.client.wait_for(
             'message', check=lambda msg: msg.author == ctx.author, timeout=60)
         skill['consumo'][status_affect] = int(status.content)
-        
 
         message_confirmation = f"Deseja realmente criar uma habilidade {skill['nome']}\n" \
             f"*Descrição:* {skill['descricao']}\n" \
             f"*Descrição Level 1:* {skill['descrição_nivel']['nv1']}\n" \
             f"Duração de {skill['consumo']['duração']} e custo de {skill['consumo'][status_affect]} {status_affect} (s/n)?"
 
-        
         await ctx.send(message_confirmation, delete_after=120)
         confirmation_response = await self.client.wait_for(
             'message', check=lambda msg: msg.author == ctx.author, timeout=60)
