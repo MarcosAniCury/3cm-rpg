@@ -178,7 +178,6 @@ class player(commands.Cog):
         await canal_log.send(embed=embed_player)
 
     @commands.command(aliases=["ds"])
-    @commands.check(check_exist_player)
     async def descrição(self, ctx):
         await ctx.send(
             "Você procura a descrição de uma classe ou uma habilidade (classe/habilidade)?",
@@ -195,14 +194,6 @@ class player(commands.Cog):
 
             input_colecao = "classes"
 
-            dict_objeto = CRUD.read_colection(input_colecao)
-            await ctx.send("**" + input_objeto + "** : " +
-                           dict_objeto[input_objeto]["descricao"])
-
-            # Canal de log
-            canal_log = self.client.get_channel(873616219700334622)
-            await canal_log.send("O usuário " + ctx.author.mention +
-                                 " pesquisou a descricao de " + input_objeto)
         elif input_colecao == "habilidade" or input_colecao == "h":
             await ctx.send("Digite o nome da habilidade:", delete_after=60)
             input_objeto = await self.client.wait_for(
@@ -211,17 +202,29 @@ class player(commands.Cog):
 
             input_colecao = "skills"
 
-            dict_objeto = CRUD.read_colection(input_colecao)
-            await ctx.send("**" + input_objeto + "** : " +
-                           dict_objeto[input_objeto]["descricao"])
-
-            # Canal de log
-            canal_log = self.client.get_channel(873616219700334622)
-            await canal_log.send("O usuário " + ctx.author.mention +
-                                 " pesquisou a descricao de " + input_objeto)
-
         else:
             await ctx.send("Valor inválido, cancelando operação.")
+            return
+
+        dict_objeto = CRUD.read_specific_item(
+            input_colecao, {"nome": input_objeto})
+
+        await ctx.send("**" + input_objeto + "** : " +
+                       dict_objeto["descricao"])
+
+        if str(ctx.author.id) == "239498713347653633":
+            if input_colecao == "classes":
+                message = f"Descrição ADM\n**{input_objeto}**: {dict_objeto['descricao_adm']}"
+            else:
+                message = f"Descrição ADM\n**{input_objeto}**\n"
+                for lv, message_lv in dict_objeto["descrição_nivel"].items():
+                    message += f"{lv}: {message_lv}\n"
+            await ctx.author.send(message, delete_after=120)
+
+        # Canal de log
+        canal_log = self.client.get_channel(873616219700334622)
+        await canal_log.send("O usuário " + ctx.author.mention +
+                             " pesquisou a descricao de " + input_objeto)
 
     @commands.command(aliases=["dp"])
     @commands.check(check_exist_player)
