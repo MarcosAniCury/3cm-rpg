@@ -29,10 +29,10 @@ class player(commands.Cog):
         print("---------------------")
 
     @commands.command()
-    # @commands.check(check_not_exist_player)
+    @commands.check(check_not_exist_player)
     async def criar_ficha(self, ctx):  # Criar player
-        await ctx.send("Função desativada temporariamente")
-        return None
+        # await ctx.send("Função desativada temporariamente")
+        # return None
 
         # Sortear uma classe
         classe_sorteada = gerar_random("classes")
